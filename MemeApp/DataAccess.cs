@@ -91,7 +91,52 @@ namespace MemeApp
                     }
                 }
 
+                connection.Close();
                 return canLogIn;
+            }
+        }
+
+        public static bool CheckIfUsernameExists(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "dbo.CheckIfUsernameExists";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("Username", SqlDbType.NVarChar).Value = username;
+
+                connection.Open();
+
+                bool exists = true;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader[0].ToString() == "0") exists = false;
+                    }
+                }
+
+                connection.Close();
+                return exists;
+            }
+        }
+
+        public static void CreateNewUser(string username, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "dbo.CreateNewUser";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("Username", SqlDbType.NVarChar).Value = username;
+                command.Parameters.Add("Password", SqlDbType.NVarChar).Value = password;
+
+                connection.Open();
+                command.ExecuteReader();
+                connection.Close();
             }
         }
     }

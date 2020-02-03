@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogIn));
             this.LblLogin = new System.Windows.Forms.Label();
             this.LblPassword = new System.Windows.Forms.Label();
-            this.TxtBoxLogin = new System.Windows.Forms.TextBox();
+            this.TxtBoxUsername = new System.Windows.Forms.TextBox();
             this.TxtBoxPassword = new System.Windows.Forms.TextBox();
             this.BtnLogIn = new System.Windows.Forms.Button();
             this.LblIncorrectInput = new System.Windows.Forms.Label();
+            this.BtnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LblLogin
@@ -59,16 +60,16 @@
             this.LblPassword.TabIndex = 1;
             this.LblPassword.Text = "Password:";
             // 
-            // TxtBoxLogin
+            // TxtBoxUsername
             // 
-            this.TxtBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
-            this.TxtBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-            this.TxtBoxLogin.ForeColor = System.Drawing.SystemColors.Window;
-            this.TxtBoxLogin.Location = new System.Drawing.Point(334, 181);
-            this.TxtBoxLogin.MaxLength = 120;
-            this.TxtBoxLogin.Name = "TxtBoxLogin";
-            this.TxtBoxLogin.Size = new System.Drawing.Size(506, 45);
-            this.TxtBoxLogin.TabIndex = 2;
+            this.TxtBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.TxtBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.TxtBoxUsername.ForeColor = System.Drawing.SystemColors.Window;
+            this.TxtBoxUsername.Location = new System.Drawing.Point(334, 181);
+            this.TxtBoxUsername.MaxLength = 120;
+            this.TxtBoxUsername.Name = "TxtBoxUsername";
+            this.TxtBoxUsername.Size = new System.Drawing.Size(506, 45);
+            this.TxtBoxUsername.TabIndex = 2;
             // 
             // TxtBoxPassword
             // 
@@ -89,7 +90,7 @@
             this.BtnLogIn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BtnLogIn.Location = new System.Drawing.Point(334, 342);
             this.BtnLogIn.Name = "BtnLogIn";
-            this.BtnLogIn.Size = new System.Drawing.Size(506, 45);
+            this.BtnLogIn.Size = new System.Drawing.Size(250, 45);
             this.BtnLogIn.TabIndex = 4;
             this.BtnLogIn.Text = "Log in";
             this.BtnLogIn.UseVisualStyleBackColor = false;
@@ -107,16 +108,30 @@
             this.LblIncorrectInput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LblIncorrectInput.Visible = false;
             // 
+            // BtnRegister
+            // 
+            this.BtnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.BtnRegister.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BtnRegister.Location = new System.Drawing.Point(590, 342);
+            this.BtnRegister.Name = "BtnRegister";
+            this.BtnRegister.Size = new System.Drawing.Size(250, 45);
+            this.BtnRegister.TabIndex = 6;
+            this.BtnRegister.Text = "Register";
+            this.BtnRegister.UseVisualStyleBackColor = false;
+            this.BtnRegister.Click += new System.EventHandler(this.BtnRegister_Click);
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.BtnRegister);
             this.Controls.Add(this.LblIncorrectInput);
             this.Controls.Add(this.BtnLogIn);
             this.Controls.Add(this.TxtBoxPassword);
-            this.Controls.Add(this.TxtBoxLogin);
+            this.Controls.Add(this.TxtBoxUsername);
             this.Controls.Add(this.LblPassword);
             this.Controls.Add(this.LblLogin);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -133,9 +148,10 @@
 
         private System.Windows.Forms.Label LblLogin;
         private System.Windows.Forms.Label LblPassword;
-        private System.Windows.Forms.TextBox TxtBoxLogin;
+        private System.Windows.Forms.TextBox TxtBoxUsername;
         private System.Windows.Forms.TextBox TxtBoxPassword;
         private System.Windows.Forms.Button BtnLogIn;
         private System.Windows.Forms.Label LblIncorrectInput;
+        private System.Windows.Forms.Button BtnRegister;
     }
 }

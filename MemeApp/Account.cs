@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MemeApp
 {
-    class Account
+    public class Account
     {
         public static string username = "";
         public static string password = "";
@@ -52,9 +52,17 @@ namespace MemeApp
             Account.password = password;
         }
 
-        public static void CreateNewAccount(string username, string password)
+        public static bool CreateNewAccount(string username, string password)
         {
-
+            if(DataAccess.CheckIfUsernameExists(username))
+            {
+                return false;
+            }
+            else
+            {
+                DataAccess.CreateNewUser(username, password);
+                return true;
+            }
         }
     }
 }

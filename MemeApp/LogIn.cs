@@ -21,7 +21,7 @@ namespace MemeApp
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            string username = TxtBoxLogin.Text;
+            string username = TxtBoxUsername.Text;
             string password = TxtBoxPassword.Text;
 
             if (DataAccess.LogIn(username, password))
@@ -34,6 +34,7 @@ namespace MemeApp
             }
             else
             {
+                LblIncorrectInput.Text = "Incorrect login or password";
                 LblIncorrectInput.Visible = true;
             }
         }
@@ -44,6 +45,42 @@ namespace MemeApp
             MainPage.mainPage.Location = this.Location;
             this.Hide();
             e.Cancel = true;
+        }
+
+        private void BtnRegister_Click(object sender, EventArgs e)
+        {
+            string username = TxtBoxUsername.Text;
+            string password = TxtBoxPassword.Text;
+            LblIncorrectInput.Text = "";
+
+            if (username == "")
+            {
+                LblIncorrectInput.Text = "Username field can't be empty";
+                LblIncorrectInput.Visible = true;
+                return;
+            }
+
+            if(password == "")
+            {
+                LblIncorrectInput.Text = "Password field can't be empty";
+                LblIncorrectInput.Visible = true;
+                return;
+            }
+
+            if(Account.CreateNewAccount(username, password))    //if account have been created
+            {
+                Account.CreateAccountDataFile(username, password);
+                MainPage.mainPage.CheckIfIsLoggedIn();
+                MainPage.mainPage.Show();
+                MainPage.mainPage.Location = this.Location;
+                this.Hide();
+            }
+            else
+            {
+                LblIncorrectInput.Text = "This username already exists";
+                LblIncorrectInput.Visible = true;
+                return;
+            }
         }
     }
 }
