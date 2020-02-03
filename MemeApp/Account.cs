@@ -11,15 +11,15 @@ namespace MemeApp
     class Account
     {
         static MainPage mainForm;
-        static string login = "";
-        static string password = "";
+        public static string login = "";
+        public static string password = "";
         
         public static void GetReferenceToMainForm(MainPage main)
         {
             mainForm = main;
         }
 
-        //Loads name, isLoggedIn variable from txt file;
+        //Logs in user, if login or password is incorrect sets account to guest
         public static void LoadDataFromFile()
         {
             if (File.Exists("AccountData.txt"))
@@ -34,7 +34,7 @@ namespace MemeApp
 
                     if (DataAccess.LogIn(login, password))
                     {
-                        MessageBox.Show("Udalo sie!");
+                        
                     }
                     else
                     {

@@ -9,6 +9,8 @@ namespace MemeApp
     public partial class MainPage : Form
     {
         AddMeme formAddMeme = new AddMeme();
+        LogIn formLogIn = new LogIn();
+
         float height = 0;
         List<PictureBox> pics = new List<PictureBox>();
         List<Label> titles = new List<Label>();
@@ -20,6 +22,16 @@ namespace MemeApp
             AddMeme.GetReferenceToMainForm(this);
             Account.GetReferenceToMainForm(this);
             Account.LoadDataFromFile();
+            if (Account.login == "Guest")
+            {
+                PicBoxUserIcon.Enabled = false;
+                PicBoxUserIcon.Visible = false;
+            }
+            else
+            {
+                BtnLogIn.Enabled = false;
+                BtnLogIn.Visible = false;
+            }
         }
 
         private void MainPage_Load(object sender, EventArgs e)
@@ -77,6 +89,8 @@ namespace MemeApp
             pic.BringToFront();
             PicBoxTopBar.BringToFront();
             BtnAddMeme.BringToFront();
+            PicBoxUserIcon.BringToFront();
+            BtnLogIn.BringToFront();
 
             pics.Add(pic);
             titles.Add(lbl);
@@ -86,6 +100,13 @@ namespace MemeApp
         {
             formAddMeme.Show();
             formAddMeme.Location = this.Location;
+            this.Hide();
+        }
+
+        private void BtnLogIn_Click(object sender, EventArgs e)
+        {
+            formLogIn.Show();
+            formLogIn.Location = this.Location;
             this.Hide();
         }
     }

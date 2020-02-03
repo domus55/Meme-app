@@ -32,7 +32,10 @@
             this.LblWheelHandler = new System.Windows.Forms.Label();
             this.PicBoxTopBar = new System.Windows.Forms.PictureBox();
             this.BtnAddMeme = new System.Windows.Forms.Button();
+            this.BtnLogIn = new System.Windows.Forms.Button();
+            this.PicBoxUserIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // LblWheelHandler
@@ -62,12 +65,32 @@
             this.BtnAddMeme.UseVisualStyleBackColor = true;
             this.BtnAddMeme.Click += new System.EventHandler(this.BtnAddMeme_Click);
             // 
+            // BtnLogIn
+            // 
+            this.BtnLogIn.Location = new System.Drawing.Point(948, 12);
+            this.BtnLogIn.Name = "BtnLogIn";
+            this.BtnLogIn.Size = new System.Drawing.Size(104, 33);
+            this.BtnLogIn.TabIndex = 3;
+            this.BtnLogIn.Text = "Log in";
+            this.BtnLogIn.UseVisualStyleBackColor = true;
+            this.BtnLogIn.Click += new System.EventHandler(this.BtnLogIn_Click);
+            // 
+            // PicBoxUserIcon
+            // 
+            this.PicBoxUserIcon.Location = new System.Drawing.Point(1010, 4);
+            this.PicBoxUserIcon.Name = "PicBoxUserIcon";
+            this.PicBoxUserIcon.Size = new System.Drawing.Size(50, 50);
+            this.PicBoxUserIcon.TabIndex = 4;
+            this.PicBoxUserIcon.TabStop = false;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.PicBoxUserIcon);
+            this.Controls.Add(this.BtnLogIn);
             this.Controls.Add(this.BtnAddMeme);
             this.Controls.Add(this.PicBoxTopBar);
             this.Controls.Add(this.LblWheelHandler);
@@ -79,6 +102,7 @@
             this.Text = "Meme";
             this.Load += new System.EventHandler(this.MainPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -88,6 +112,8 @@
         private System.Windows.Forms.Label LblWheelHandler;
         private System.Windows.Forms.PictureBox PicBoxTopBar;
         private System.Windows.Forms.Button BtnAddMeme;
+        private System.Windows.Forms.Button BtnLogIn;
+        private System.Windows.Forms.PictureBox PicBoxUserIcon;
     }
 }
 
