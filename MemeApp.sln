@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeApp", "MemeApp\MemeApp.csproj", "{760C8D16-E455-46C1-A7F4-E08809ACF23B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{760C8D16-E455-46C1-A7F4-E08809ACF23B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760C8D16-E455-46C1-A7F4-E08809ACF23B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760C8D16-E455-46C1-A7F4-E08809ACF23B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760C8D16-E455-46C1-A7F4-E08809ACF23B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7436F3CB-1AE0-4FB4-A22A-460B9C766AF2}
+	EndGlobalSection
+EndGlobal
