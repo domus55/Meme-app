@@ -8,6 +8,7 @@ namespace MemeApp
 {
     public partial class MainPage : Form
     {
+        public static MainPage mainPage;
         AddMeme formAddMeme = new AddMeme();
         LogIn formLogIn = new LogIn();
 
@@ -19,19 +20,9 @@ namespace MemeApp
         {
             InitializeComponent();
             this.LblWheelHandler.MouseWheel += MouseWheel;
-            AddMeme.GetReferenceToMainForm(this);
-            Account.GetReferenceToMainForm(this);
+            mainPage = this;
             Account.LoadDataFromFile();
-            if (Account.login == "Guest")
-            {
-                PicBoxUserIcon.Enabled = false;
-                PicBoxUserIcon.Visible = false;
-            }
-            else
-            {
-                BtnLogIn.Enabled = false;
-                BtnLogIn.Visible = false;
-            }
+            CheckIfIsLoggedIn();
         }
 
         private void MainPage_Load(object sender, EventArgs e)
@@ -39,6 +30,26 @@ namespace MemeApp
             ShowMeme(1);
             ShowMeme(2);
             ShowMeme(3);
+        }
+
+        public void CheckIfIsLoggedIn()
+        {
+            if (Account.username == "Guest")
+            {
+                BtnLogIn.Enabled = true;
+                BtnLogIn.Visible = true;
+
+                PicBoxUserIcon.Enabled = false;
+                PicBoxUserIcon.Visible = false;
+            }
+            else
+            {
+                BtnLogIn.Enabled = false;
+                BtnLogIn.Visible = false;
+
+                PicBoxUserIcon.Enabled = true;
+                PicBoxUserIcon.Visible = true;
+            }
         }
 
         //Moves images and titles up and down whenever user uses wheel

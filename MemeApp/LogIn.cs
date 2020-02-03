@@ -15,16 +15,35 @@ namespace MemeApp
         public LogIn()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(Form_Closing);
+            this.AcceptButton = BtnLogIn;
         }
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            string login = TxtBoxLogin.Text;
+            string username = TxtBoxLogin.Text;
             string password = TxtBoxPassword.Text;
 
-            if (DataAccess.LogIn(login, password)) MessageBox.Show("dziala");
-            else MessageBox.Show("nie dziala");
+            if (DataAccess.LogIn(username, password))
+            {
+                Account.CreateAccountDataFile(username, password);
+                MainPage.mainPage.CheckIfIsLoggedIn();
+                MainPage.mainPage.Show();
+                MainPage.mainPage.Location = this.Location;
+                this.Hide();
+            }
+            else
+            {
+                LblIncorrectInput.Visible = true;
+            }
+        }
 
+        private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainPage.mainPage.Show();
+            MainPage.mainPage.Location = this.Location;
+            this.Hide();
+            e.Cancel = true;
         }
     }
 }

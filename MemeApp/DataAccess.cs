@@ -68,7 +68,7 @@ namespace MemeApp
             return meme;
         }
 
-        public static bool LogIn(string login, string password)
+        public static bool LogIn(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -76,7 +76,7 @@ namespace MemeApp
                 SqlCommand command = new SqlCommand(com, connection);
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.Add("Login", SqlDbType.NVarChar).Value = login;
+                command.Parameters.Add("Username", SqlDbType.NVarChar).Value = username;
                 command.Parameters.Add("Password", SqlDbType.NVarChar).Value = password;
 
                 connection.Open();

@@ -39,15 +39,10 @@ namespace MemeApp
             DataAccess.SaveImage(TxtBoxTitle.Text, imgLoc);
         }
 
-        public static void GetReferenceToMainForm(MainPage main)
-        {
-            mainPage = main;
-        }
-
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            mainPage.Show();
-            mainPage.Location = this.Location;
+            MainPage.mainPage.Show();
+            MainPage.mainPage.Location = this.Location;
             this.Hide();
             e.Cancel = true;
         }

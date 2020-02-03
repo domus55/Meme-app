@@ -34,6 +34,7 @@
             this.TxtBoxLogin = new System.Windows.Forms.TextBox();
             this.TxtBoxPassword = new System.Windows.Forms.TextBox();
             this.BtnLogIn = new System.Windows.Forms.Button();
+            this.LblIncorrectInput = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LblLogin
@@ -43,9 +44,9 @@
             this.LblLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.LblLogin.Location = new System.Drawing.Point(122, 181);
             this.LblLogin.Name = "LblLogin";
-            this.LblLogin.Size = new System.Drawing.Size(110, 39);
+            this.LblLogin.Size = new System.Drawing.Size(183, 39);
             this.LblLogin.TabIndex = 0;
-            this.LblLogin.Text = "Login:";
+            this.LblLogin.Text = "Username:";
             // 
             // LblPassword
             // 
@@ -94,12 +95,25 @@
             this.BtnLogIn.UseVisualStyleBackColor = false;
             this.BtnLogIn.Click += new System.EventHandler(this.BtnLogIn_Click);
             // 
+            // LblIncorrectInput
+            // 
+            this.LblIncorrectInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.LblIncorrectInput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LblIncorrectInput.Location = new System.Drawing.Point(334, 430);
+            this.LblIncorrectInput.Name = "LblIncorrectInput";
+            this.LblIncorrectInput.Size = new System.Drawing.Size(506, 40);
+            this.LblIncorrectInput.TabIndex = 5;
+            this.LblIncorrectInput.Text = "Incorrect login or password";
+            this.LblIncorrectInput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LblIncorrectInput.Visible = false;
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.LblIncorrectInput);
             this.Controls.Add(this.BtnLogIn);
             this.Controls.Add(this.TxtBoxPassword);
             this.Controls.Add(this.TxtBoxLogin);
@@ -122,5 +136,6 @@
         private System.Windows.Forms.TextBox TxtBoxLogin;
         private System.Windows.Forms.TextBox TxtBoxPassword;
         private System.Windows.Forms.Button BtnLogIn;
+        private System.Windows.Forms.Label LblIncorrectInput;
     }
 }
