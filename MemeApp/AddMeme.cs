@@ -13,7 +13,6 @@ namespace MemeApp
     public partial class AddMeme : Form
     {
         string imgLoc = "";
-        static MainPage mainPage;
 
         public AddMeme()
         {
@@ -36,15 +35,40 @@ namespace MemeApp
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            DataAccess.SaveImage(TxtBoxTitle.Text, imgLoc);
+            if(TxtBoxTitle.Text == "")
+            {
+                LblInputError.Font = new Font("Microsoft Sans Serif", 14);
+                LblInputError.Text = "Title field can't be empty";
+                LblInputError.Visible = true;
+                return;
+            }
+
+            if(imgLoc == "")
+            {
+                LblInputError.Font = new Font("Microsoft Sans Serif", 12);
+                LblInputError.Text = "You have to chose an image";
+                LblInputError.Visible = true;
+                return;
+            }
+            
+            {
+                DataAccess.SaveImage(TxtBoxTitle.Text, imgLoc);
+                MainPage.mainPage.ShowMeme(DataAccess.CountAllMemes());
+                Close();
+            }
         }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Close();
+            e.Cancel = true;
+        }
+
+        new private void Close()
+        {
             MainPage.mainPage.Show();
             MainPage.mainPage.Location = this.Location;
             this.Hide();
-            e.Cancel = true;
         }
     }
 }

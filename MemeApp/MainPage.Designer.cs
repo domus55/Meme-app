@@ -29,26 +29,31 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
-            this.LblWheelHandler = new System.Windows.Forms.Label();
+            this.LblBackground = new System.Windows.Forms.Label();
             this.PicBoxTopBar = new System.Windows.Forms.PictureBox();
             this.BtnAddMeme = new System.Windows.Forms.Button();
             this.BtnLogIn = new System.Windows.Forms.Button();
             this.PicBoxUserIcon = new System.Windows.Forms.PictureBox();
+            this.PicBoxAccountMenu = new System.Windows.Forms.PictureBox();
+            this.BtnAccountSettings = new System.Windows.Forms.Button();
+            this.BtnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAccountMenu)).BeginInit();
             this.SuspendLayout();
             // 
-            // LblWheelHandler
+            // LblBackground
             // 
-            this.LblWheelHandler.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.LblWheelHandler.Location = new System.Drawing.Point(0, 0);
-            this.LblWheelHandler.Name = "LblWheelHandler";
-            this.LblWheelHandler.Size = new System.Drawing.Size(1064, 680);
-            this.LblWheelHandler.TabIndex = 0;
+            this.LblBackground.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.LblBackground.Location = new System.Drawing.Point(0, 0);
+            this.LblBackground.Name = "LblBackground";
+            this.LblBackground.Size = new System.Drawing.Size(1064, 680);
+            this.LblBackground.TabIndex = 1;
+            this.LblBackground.Click += new System.EventHandler(this.LblBackground_Click);
             // 
             // PicBoxTopBar
             // 
-            this.PicBoxTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.PicBoxTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.PicBoxTopBar.Location = new System.Drawing.Point(0, 0);
             this.PicBoxTopBar.Name = "PicBoxTopBar";
             this.PicBoxTopBar.Size = new System.Drawing.Size(1064, 58);
@@ -57,22 +62,27 @@
             // 
             // BtnAddMeme
             // 
+            this.BtnAddMeme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnAddMeme.ForeColor = System.Drawing.Color.White;
             this.BtnAddMeme.Location = new System.Drawing.Point(12, 12);
             this.BtnAddMeme.Name = "BtnAddMeme";
             this.BtnAddMeme.Size = new System.Drawing.Size(104, 33);
-            this.BtnAddMeme.TabIndex = 2;
+            this.BtnAddMeme.TabIndex = 20;
+            this.BtnAddMeme.TabStop = false;
             this.BtnAddMeme.Text = "Add meme";
-            this.BtnAddMeme.UseVisualStyleBackColor = true;
+            this.BtnAddMeme.UseVisualStyleBackColor = false;
             this.BtnAddMeme.Click += new System.EventHandler(this.BtnAddMeme_Click);
             // 
             // BtnLogIn
             // 
+            this.BtnLogIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnLogIn.ForeColor = System.Drawing.Color.White;
             this.BtnLogIn.Location = new System.Drawing.Point(948, 12);
             this.BtnLogIn.Name = "BtnLogIn";
             this.BtnLogIn.Size = new System.Drawing.Size(104, 33);
             this.BtnLogIn.TabIndex = 3;
             this.BtnLogIn.Text = "Log in";
-            this.BtnLogIn.UseVisualStyleBackColor = true;
+            this.BtnLogIn.UseVisualStyleBackColor = false;
             this.BtnLogIn.Click += new System.EventHandler(this.BtnLogIn_Click);
             // 
             // PicBoxUserIcon
@@ -82,6 +92,42 @@
             this.PicBoxUserIcon.Size = new System.Drawing.Size(50, 50);
             this.PicBoxUserIcon.TabIndex = 4;
             this.PicBoxUserIcon.TabStop = false;
+            this.PicBoxUserIcon.Click += new System.EventHandler(this.PicBoxUserIcon_Click);
+            // 
+            // PicBoxAccountMenu
+            // 
+            this.PicBoxAccountMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.PicBoxAccountMenu.Location = new System.Drawing.Point(886, 64);
+            this.PicBoxAccountMenu.Name = "PicBoxAccountMenu";
+            this.PicBoxAccountMenu.Size = new System.Drawing.Size(174, 90);
+            this.PicBoxAccountMenu.TabIndex = 5;
+            this.PicBoxAccountMenu.TabStop = false;
+            this.PicBoxAccountMenu.Visible = false;
+            // 
+            // BtnAccountSettings
+            // 
+            this.BtnAccountSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnAccountSettings.ForeColor = System.Drawing.Color.White;
+            this.BtnAccountSettings.Location = new System.Drawing.Point(896, 74);
+            this.BtnAccountSettings.Name = "BtnAccountSettings";
+            this.BtnAccountSettings.Size = new System.Drawing.Size(158, 32);
+            this.BtnAccountSettings.TabIndex = 6;
+            this.BtnAccountSettings.Text = "Settings";
+            this.BtnAccountSettings.UseVisualStyleBackColor = false;
+            this.BtnAccountSettings.Visible = false;
+            // 
+            // BtnLogout
+            // 
+            this.BtnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnLogout.ForeColor = System.Drawing.Color.White;
+            this.BtnLogout.Location = new System.Drawing.Point(896, 112);
+            this.BtnLogout.Name = "BtnLogout";
+            this.BtnLogout.Size = new System.Drawing.Size(158, 32);
+            this.BtnLogout.TabIndex = 7;
+            this.BtnLogout.Text = "Logout";
+            this.BtnLogout.UseVisualStyleBackColor = false;
+            this.BtnLogout.Visible = false;
+            this.BtnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
             // MainPage
             // 
@@ -89,11 +135,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.BtnLogout);
+            this.Controls.Add(this.BtnAccountSettings);
+            this.Controls.Add(this.PicBoxAccountMenu);
             this.Controls.Add(this.PicBoxUserIcon);
             this.Controls.Add(this.BtnLogIn);
             this.Controls.Add(this.BtnAddMeme);
             this.Controls.Add(this.PicBoxTopBar);
-            this.Controls.Add(this.LblWheelHandler);
+            this.Controls.Add(this.LblBackground);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -103,17 +152,21 @@
             this.Load += new System.EventHandler(this.MainPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxAccountMenu)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label LblWheelHandler;
+        private System.Windows.Forms.Label LblBackground;
         private System.Windows.Forms.PictureBox PicBoxTopBar;
         private System.Windows.Forms.Button BtnAddMeme;
         private System.Windows.Forms.Button BtnLogIn;
         private System.Windows.Forms.PictureBox PicBoxUserIcon;
+        private System.Windows.Forms.PictureBox PicBoxAccountMenu;
+        private System.Windows.Forms.Button BtnAccountSettings;
+        private System.Windows.Forms.Button BtnLogout;
     }
 }
 

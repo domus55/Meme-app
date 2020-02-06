@@ -18,21 +18,17 @@ namespace MemeApp
             BinaryReader br = new BinaryReader(fs);
             img = br.ReadBytes((int)fs.Length);
 
-
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string com = "Insert into Memes(Creator_Id, Title, Image) values(0, @Title, @Img)";
+                string com = "Insert into Memes(Creator_Id, Title, Image) values(@Id, @Title, @Img)";
                 SqlCommand command = new SqlCommand(com, connection);
 
+                command.Parameters.Add("Id", SqlDbType.VarChar).Value = Account.id;
                 command.Parameters.Add("Title", SqlDbType.VarChar).Value = title;
                 command.Parameters.Add("Img", SqlDbType.Image).Value = img;
 
                 connection.Open();
-
-                int x = command.ExecuteNonQuery();
-                MessageBox.Show(x.ToString() + " record(s) saved");
-
+                command.ExecuteNonQuery();
                 connection.Close();
             }
         }
@@ -123,6 +119,33 @@ namespace MemeApp
             }
         }
 
+        public static int GetUserId(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "dbo.GetUserId";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("Username", SqlDbType.NVarChar).Value = username;
+
+                connection.Open();
+
+                int id = 1;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        id = (int)reader[0];
+                    }
+                }
+
+                connection.Close();
+                return id;
+            }
+        }
+
         public static void CreateNewUser(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -138,6 +161,33 @@ namespace MemeApp
                 command.ExecuteReader();
                 connection.Close();
             }
+        }
+
+        public static int CountAllMemes()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "dbo.CountAllMemes";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+
+                int Count = 1;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Count = (int)reader[0];
+                    }
+                }
+
+                connection.Close();
+                return Count;
+            }
+
+            return 1;
         }
     }
 }

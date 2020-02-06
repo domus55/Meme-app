@@ -19,7 +19,7 @@ namespace MemeApp
         public MainPage()
         {
             InitializeComponent();
-            this.LblWheelHandler.MouseWheel += MouseWheel;
+            this.LblBackground.MouseWheel += MouseWheel;
             mainPage = this;
             Account.LoadDataFromFile();
             CheckIfIsLoggedIn();
@@ -27,9 +27,7 @@ namespace MemeApp
 
         private void MainPage_Load(object sender, EventArgs e)
         {
-            ShowMeme(1);
-            ShowMeme(2);
-            ShowMeme(3);
+            ShowAllMemes();
         }
 
         public void CheckIfIsLoggedIn()
@@ -55,34 +53,45 @@ namespace MemeApp
         //Moves images and titles up and down whenever user uses wheel
         private void MouseWheel(object sender, MouseEventArgs e)
         {
-            height += e.Delta * 0.2f;
+            height += e.Delta * 0.4f;
+            if (height > 0) height = 0;
 
             for(int i = 0; i<titles.Count; i++)
             {
-                titles[i].Location = new Point(10, (int)height + i * 600);
+                titles[i].Location = new Point(10, (int)height + 50 + i * 600);
             }
 
             for (int i = 0; i < pics.Count; i++)
             {
-                pics[i].Location = new Point(10, (int)height + 50 + i * 600);
+                pics[i].Location = new Point(10, (int)height + 100 + i * 600);
+            }
+        }
+
+        private void ShowAllMemes()
+        {
+            int allMemes = DataAccess.CountAllMemes();
+
+            for(int i = 0; i<allMemes; i++)
+            {
+                ShowMeme(i+1);
             }
         }
 
         //Shows meme with an specific id
-        private void ShowMeme(int id)
+        public void ShowMeme(int id)
         {
             Meme meme = DataAccess.ShowImage(id);
 
             Label lbl = new Label();
             lbl.Text = meme.title;
             lbl.ForeColor = Color.FromArgb(255, 255, 255, 255);
-            lbl.Location = new Point(10, 0 + (id-1)*600);
+            lbl.Location = new Point(10, 50 + (id-1)*600);
             lbl.Font = new Font("Arial", 30);
             lbl.AutoSize = true;
 
             PictureBox pic = new PictureBox();
             pic.Image = meme.image;
-            pic.Location = new Point(10, 50 + (id - 1) * 600);
+            pic.Location = new Point(10, 100 + (id - 1) * 600);
             Size size = pic.GetPreferredSize(new Size(1000, 500));
             float scale = size.Height / 500f;
             pic.Height = 500;
@@ -119,6 +128,45 @@ namespace MemeApp
             formLogIn.Show();
             formLogIn.Location = this.Location;
             this.Hide();
+        }
+
+        private void PicBoxUserIcon_Click(object sender, EventArgs e)
+        {
+            ShowAccountMenu();
+        }
+
+        private void LblBackground_Click(object sender, EventArgs e)
+        {
+            ShowAccountMenu(false);
+        }
+
+        //show account menu if it is hidden or hide it if it is visible
+        private void ShowAccountMenu()
+        {
+            ShowAccountMenu(!PicBoxAccountMenu.Visible);
+        }
+
+        //show/hide account menu
+        private void ShowAccountMenu(bool show)
+        {
+            PicBoxAccountMenu.Visible = show;
+            BtnAccountSettings.Visible = show;
+            BtnLogout.Visible = show;
+
+            if(show)
+            {
+                PicBoxAccountMenu.BringToFront();
+                BtnAccountSettings.BringToFront();
+                BtnLogout.BringToFront();
+            }
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            Account.CreateAccountDataFile();
+            Account.LoadDataFromFile();
+            CheckIfIsLoggedIn();
+            ShowAccountMenu(false);
         }
     }
 }

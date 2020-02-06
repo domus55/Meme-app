@@ -34,6 +34,7 @@
             this.PicMeme = new System.Windows.Forms.PictureBox();
             this.BtnFindImage = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
+            this.LblInputError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PicMeme)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,11 +71,18 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
+            // LblInputError
+            // 
+            resources.ApplyResources(this.LblInputError, "LblInputError");
+            this.LblInputError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.LblInputError.Name = "LblInputError";
+            // 
             // AddMeme
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.Controls.Add(this.LblInputError);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.BtnFindImage);
             this.Controls.Add(this.PicMeme);
@@ -96,5 +104,6 @@
         private System.Windows.Forms.PictureBox PicMeme;
         private System.Windows.Forms.Button BtnFindImage;
         private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.Label LblInputError;
     }
 }
