@@ -14,7 +14,10 @@ namespace MemeApp
         public static List<Meme> memes = new List<Meme>();
         public string title { get; set; }
         public Image image { get; set; }
-        public int points = 1246;
+        public int id;
+        public int points = 0;
+        public int pointsAddedByThisUser = 0;
+        public int numberOfComments = 0;
         private Label lblTitle;
         private PictureBox picBoxImage;
         private Label pointsAndComments;
@@ -22,8 +25,6 @@ namespace MemeApp
         private Button downvote;
         private Button comments;
         private const int interspaceBetweenMemes = 680;
-        private bool isUpvoteClicked = false;
-        private bool isDownvoteClicked = false;
         private static Image imgUpvoteNormal = Image.FromFile("images/upvote.png");
         private static Image imgUpvoteClicked = Image.FromFile("images/upvoteClicked.png");
         private static Image imgDownvoteNormal = Image.FromFile("images/downvote.png");
@@ -53,14 +54,12 @@ namespace MemeApp
             meme.lblTitle = new Label();
             meme.lblTitle.Text = meme.title;
             meme.lblTitle.ForeColor = Color.FromArgb(255, 255, 255, 255);
-            meme.lblTitle.Location = new Point(10, 50 + (id - 1) * interspaceBetweenMemes);
             meme.lblTitle.Font = new Font("Arial", 30);
             meme.lblTitle.AutoSize = true;
 
             ////Initialize meme picturebox
             meme.picBoxImage = new PictureBox();
             meme.picBoxImage.Image = meme.image;
-            meme.picBoxImage.Location = new Point(10, 100 + (id - 1) * interspaceBetweenMemes);
             Size size = meme.picBoxImage.GetPreferredSize(new Size(1000, 500));
             float scale = size.Height / 500f;
             meme.picBoxImage.Height = 500;
@@ -68,29 +67,26 @@ namespace MemeApp
             meme.picBoxImage.SizeMode = PictureBoxSizeMode.Zoom;
 
             //Initialize points and comments label
-            meme.pointsAndComments = new Label();
-            meme.pointsAndComments.Location = new Point(10, 600 + (id - 1) * interspaceBetweenMemes);
-            meme.pointsAndComments.Text = meme.points.ToString() + " points, 423 comments";
+            meme.pointsAndComments = new Label();;
+            meme.ShowPointsAndComments();
             meme.pointsAndComments.AutoSize = true;
             if (MainPage.darkMode) meme.pointsAndComments.ForeColor = Color.FromArgb(150, 255, 255, 255);
             else meme.pointsAndComments.ForeColor = Color.FromArgb(150, 0, 0, 0);
 
             //Initialize upvote button
-            meme.upvote.Location = new Point(10, 620 + (id - 1) * interspaceBetweenMemes);
             meme.upvote.BackgroundImageLayout = ImageLayout.Zoom;
             meme.upvote.Size = new Size(52, 40);
             meme.upvote.TabStop = false;
             meme.upvote.FlatStyle = FlatStyle.Flat;
-            if (meme.isUpvoteClicked) meme.upvote.BackgroundImage = imgUpvoteClicked;
+            if (meme.pointsAddedByThisUser == 1) meme.upvote.BackgroundImage = imgUpvoteClicked;
             else meme.upvote.BackgroundImage = imgUpvoteNormal;
 
             //Initialize downvote button
-            meme.downvote.Location = new Point(70, 620 + (id - 1) * interspaceBetweenMemes);
             meme.downvote.BackgroundImageLayout = ImageLayout.Zoom;
             meme.downvote.Size = new Size(52, 40);
             meme.downvote.TabStop = false;
             meme.downvote.FlatStyle = FlatStyle.Flat;
-            if (meme.isDownvoteClicked) meme.downvote.BackgroundImage = imgDownvoteClicked;
+            if (meme.pointsAddedByThisUser == -1) meme.downvote.BackgroundImage = imgDownvoteClicked;
             else meme.downvote.BackgroundImage = imgDownvoteNormal;
 
             //Handle events
@@ -112,6 +108,7 @@ namespace MemeApp
             meme.downvote.BringToFront();
             //meme.comments.BringToFront();
             memes.Add(meme);
+            SetLocation();
 
             MainPage.mainPage.BringEverythingToFront();
         }
@@ -123,38 +120,70 @@ namespace MemeApp
 
         void UpvoteClick(object sender, MouseEventArgs e)
         {
-            isUpvoteClicked = !isUpvoteClicked;
-            Button btn = (Button)sender;
-            if(isUpvoteClicked) btn.BackgroundImage = imgUpvoteClicked;
-            else btn.BackgroundImage = imgUpvoteNormal;
-
-            if (isDownvoteClicked && isUpvoteClicked)
+            if (pointsAddedByThisUser == -1)
             {
-                isDownvoteClicked = false;
+                DataAccess.AddPointsToMeme(id, 1);
                 downvote.BackgroundImage = imgDownvoteNormal;
             }
+            if (pointsAddedByThisUser == 1) pointsAddedByThisUser = 0;
+            else pointsAddedByThisUser = 1;
+            lblTitle.Focus();
+            Button btn = (Button)sender;
+            if (pointsAddedByThisUser == 1)
+            {
+                btn.BackgroundImage = imgUpvoteClicked;
+                DataAccess.AddPointsToMeme(id, 1); 
+            }
+            else
+            {
+                DataAccess.AddPointsToMeme(id, -1);
+                DataAccess.AddPointsToMeme(id, 0);
+                btn.BackgroundImage = imgUpvoteNormal;
+            }
+
+            ShowPointsAndComments();
         }
 
         void DownvoteClick(object sender, MouseEventArgs e)
         {
-            isDownvoteClicked = !isDownvoteClicked;
-            Button btn = (Button)sender;
-            if (isDownvoteClicked) btn.BackgroundImage = imgDownvoteClicked;
-            else btn.BackgroundImage = imgDownvoteNormal;
-
-            if(isDownvoteClicked && isUpvoteClicked)
+            if (pointsAddedByThisUser == 1)
             {
-                isUpvoteClicked = false;
                 upvote.BackgroundImage = imgUpvoteNormal;
+                DataAccess.AddPointsToMeme(id, -1);
             }
+            if (pointsAddedByThisUser == -1) pointsAddedByThisUser = 0;
+            else pointsAddedByThisUser = -1;
+
+            lblTitle.Focus();
+            Button btn = (Button)sender;
+
+            if (pointsAddedByThisUser == -1)
+            {
+                btn.BackgroundImage = imgDownvoteClicked;
+                DataAccess.AddPointsToMeme(id, -1);
+            }
+            else
+            {
+                btn.BackgroundImage = imgDownvoteNormal;
+                DataAccess.AddPointsToMeme(id, 1);
+                DataAccess.AddPointsToMeme(id, 0);
+            }
+            ShowPointsAndComments();
+        }
+
+        private void ShowPointsAndComments()
+        {
+            pointsAndComments.Text = DataAccess.CountPointsInMeme(id).ToString() + " points, " + numberOfComments.ToString() + " comments";
         }
 
         ///<summary>
         ///Moves all memes up or down
         ///</summary>
-        public static void SetLocation(float height)
+        public static void SetLocation()
         {
-            for(int i = 0; i<memes.Count; i++)
+            int height = (int)MainPage.mainPage.height;
+
+            for (int i = 0; i<memes.Count; i++)
             {
                 memes[i].lblTitle.Location = new Point(10, (int)height + 50 + i * interspaceBetweenMemes);
                 memes[i].picBoxImage.Location = new Point(10, (int)height + 100 + i * interspaceBetweenMemes);

@@ -30,6 +30,7 @@ namespace MemeApp
                 MainPage.mainPage.CheckIfIsLoggedIn();
                 MainPage.mainPage.Show();
                 MainPage.mainPage.Location = this.Location;
+                MainPage.mainPage.ReloadForm();
                 this.Hide();
             }
             else
@@ -73,6 +74,7 @@ namespace MemeApp
                 MainPage.mainPage.CheckIfIsLoggedIn();
                 MainPage.mainPage.Show();
                 MainPage.mainPage.Location = this.Location;
+                MainPage.mainPage.ReloadForm();
                 this.Hide();
             }
             else

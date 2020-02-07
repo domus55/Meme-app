@@ -13,7 +13,7 @@ namespace MemeApp
         AddMeme formAddMeme = new AddMeme();
         LogIn formLogIn = new LogIn();
 
-        float height = 0;
+        public float height = 0;
         List<PictureBox> pics = new List<PictureBox>();
         List<Label> titles = new List<Label>();
 
@@ -67,7 +67,7 @@ namespace MemeApp
             height += e.Delta * 0.4f;
             if (height > 0) height = 0;
 
-            Meme.SetLocation(height);
+            Meme.SetLocation();
         }
 
         private void ShowAllMemes()
@@ -136,6 +136,17 @@ namespace MemeApp
             Account.LoadDataFromFile();
             CheckIfIsLoggedIn();
             ShowAccountMenu(false);
+            ReloadForm();
+        }
+
+        public void ReloadForm()
+        {
+            Meme.memes.Clear();
+            this.Controls.Clear();
+            this.InitializeComponent();
+            ShowAllMemes();
+            this.LblBackground.MouseWheel += MouseWheel;
+            CheckIfIsLoggedIn();
         }
     }
 }
