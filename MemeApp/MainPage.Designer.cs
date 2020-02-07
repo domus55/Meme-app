@@ -63,6 +63,7 @@
             // BtnAddMeme
             // 
             this.BtnAddMeme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnAddMeme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAddMeme.ForeColor = System.Drawing.Color.White;
             this.BtnAddMeme.Location = new System.Drawing.Point(12, 12);
             this.BtnAddMeme.Name = "BtnAddMeme";
@@ -76,6 +77,7 @@
             // BtnLogIn
             // 
             this.BtnLogIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnLogIn.ForeColor = System.Drawing.Color.White;
             this.BtnLogIn.Location = new System.Drawing.Point(948, 12);
             this.BtnLogIn.Name = "BtnLogIn";
@@ -107,6 +109,7 @@
             // BtnAccountSettings
             // 
             this.BtnAccountSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnAccountSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAccountSettings.ForeColor = System.Drawing.Color.White;
             this.BtnAccountSettings.Location = new System.Drawing.Point(896, 74);
             this.BtnAccountSettings.Name = "BtnAccountSettings";
@@ -119,6 +122,7 @@
             // BtnLogout
             // 
             this.BtnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BtnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnLogout.ForeColor = System.Drawing.Color.White;
             this.BtnLogout.Location = new System.Drawing.Point(896, 112);
             this.BtnLogout.Name = "BtnLogout";

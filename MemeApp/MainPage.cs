@@ -9,6 +9,7 @@ namespace MemeApp
     public partial class MainPage : Form
     {
         public static MainPage mainPage;
+        public static bool darkMode = true;
         AddMeme formAddMeme = new AddMeme();
         LogIn formLogIn = new LogIn();
 
@@ -76,6 +77,7 @@ namespace MemeApp
             for(int i = 0; i<allMemes; i++)
             {
                 Meme.ShowMeme(i+1);
+                //Meme.ShowMeme(1);
             }
         }
 
