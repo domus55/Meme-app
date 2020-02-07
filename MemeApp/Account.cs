@@ -14,7 +14,9 @@ namespace MemeApp
         public static string password = "";
         public static int id = 1;
 
-        //Logs in user using txt file, if login or password is incorrect sets account to guest
+        ///<summary>
+        ///Logs in user using txt file, if login or password is incorrect sets account to guest
+        ///</summary>
         public static void LoadDataFromFile()
         {
             if (File.Exists("AccountData.txt"))
@@ -55,6 +57,10 @@ namespace MemeApp
             Account.password = password;
             Account.id = DataAccess.GetUserId(username);
         }
+
+        ///<summary>
+        ///Creates new account if username is free
+        ///</summary>
 
         public static bool CreateNewAccount(string username, string password)
         {

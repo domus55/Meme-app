@@ -53,7 +53,7 @@ namespace MemeApp
             
             {
                 DataAccess.SaveImage(TxtBoxTitle.Text, imgLoc);
-                MainPage.mainPage.ShowMeme(DataAccess.CountAllMemes());
+                Meme.ShowMeme(DataAccess.CountAllMemes());
                 Close();
             }
         }

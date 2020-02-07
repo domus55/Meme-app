@@ -14,6 +14,7 @@ namespace UnitTest
             if (File.Exists("AccountData.txt")) File.Delete("AccountData.txt");
             Account.LoadDataFromFile();
 
+
             Assert.IsTrue(File.Exists("AccountData.txt"));
 
             if(File.Exists("AccountData.txt"))

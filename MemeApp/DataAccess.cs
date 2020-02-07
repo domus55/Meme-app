@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MemeApp
 {
-    class DataAccess
+    public static class DataAccess
     {
         static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Meme"].ConnectionString;
 
@@ -186,8 +186,6 @@ namespace MemeApp
                 connection.Close();
                 return Count;
             }
-
-            return 1;
         }
     }
 }
