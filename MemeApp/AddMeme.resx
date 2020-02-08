@@ -252,23 +252,23 @@
   <data name="&gt;&gt;BtnSave.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="LblInputError.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="LblInputError.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <data name="LblInputError.Location" type="System.Drawing.Point, System.Drawing">
-    <value>468, 64</value>
+    <value>457, 56</value>
   </data>
   <data name="LblInputError.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 20</value>
+    <value>231, 40</value>
   </data>
   <data name="LblInputError.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="LblInputError.Text" xml:space="preserve">
     <value>Title field can't be empty</value>
+  </data>
+  <data name="LblInputError.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
   <data name="LblInputError.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

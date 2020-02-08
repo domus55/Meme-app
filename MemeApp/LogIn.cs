@@ -24,20 +24,29 @@ namespace MemeApp
             string username = TxtBoxUsername.Text;
             string password = TxtBoxPassword.Text;
 
-            if (DataAccess.LogIn(username, password))
+            try
             {
-                Account.CreateAccountDataFile(username, password);
-                MainPage.mainPage.CheckIfIsLoggedIn();
-                MainPage.mainPage.Show();
-                MainPage.mainPage.Location = this.Location;
-                MainPage.mainPage.ReloadForm();
-                this.Hide();
+                if (DataAccess.LogIn(username, password))
+                {
+                    Account.CreateAccountDataFile(username, password);
+                    MainPage.mainPage.CheckIfIsLoggedIn();
+                    MainPage.mainPage.Show();
+                    MainPage.mainPage.Location = this.Location;
+                    MainPage.mainPage.ReloadForm();
+                    this.Hide();
+                }
+                else
+                {
+                    LblIncorrectInput.Text = "Incorrect login or password";
+                    LblIncorrectInput.Visible = true;
+                }
             }
-            else
+            catch
             {
-                LblIncorrectInput.Text = "Incorrect login or password";
+                LblIncorrectInput.Text = "No internet connection!";
                 LblIncorrectInput.Visible = true;
             }
+            
         }
 
         private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -68,20 +77,28 @@ namespace MemeApp
                 return;
             }
 
-            if(Account.CreateNewAccount(username, password))    //if account have been created
+            try
             {
-                Account.CreateAccountDataFile(username, password);
-                MainPage.mainPage.CheckIfIsLoggedIn();
-                MainPage.mainPage.Show();
-                MainPage.mainPage.Location = this.Location;
-                MainPage.mainPage.ReloadForm();
-                this.Hide();
+                if (Account.CreateNewAccount(username, password))    //if account have been created
+                {
+                    Account.CreateAccountDataFile(username, password);
+                    MainPage.mainPage.CheckIfIsLoggedIn();
+                    MainPage.mainPage.Show();
+                    MainPage.mainPage.Location = this.Location;
+                    MainPage.mainPage.ReloadForm();
+                    this.Hide();
+                }
+                else
+                {
+                    LblIncorrectInput.Text = "This username already exists";
+                    LblIncorrectInput.Visible = true;
+                    return;
+                }
             }
-            else
+            catch
             {
-                LblIncorrectInput.Text = "This username already exists";
+                LblIncorrectInput.Text = "No internet connection!";
                 LblIncorrectInput.Visible = true;
-                return;
             }
         }
     }

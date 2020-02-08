@@ -10,6 +10,7 @@ namespace MemeApp
     {
         public static MainPage mainPage;
         public static bool darkMode = true;
+        public static bool noInternetConnection = false;
         AddMeme formAddMeme = new AddMeme();
         LogIn formLogIn = new LogIn();
 
@@ -22,13 +23,33 @@ namespace MemeApp
             InitializeComponent();
             this.LblBackground.MouseWheel += MouseWheel;
             mainPage = this;
-            Account.LoadDataFromFile();
+            try
+            {
+                Account.LoadDataFromFile();
+            }
+            catch
+            {
+                //No internet connection
+                Label errorMessage = new Label();
+                errorMessage.AutoSize = false;
+                errorMessage.TextAlign = ContentAlignment.MiddleCenter;
+                errorMessage.Dock = DockStyle.Fill;
+                errorMessage.Text = "No internet connection!";
+                errorMessage.Font = new Font("Microsoft Sans Serif", 20);
+                errorMessage.ForeColor = Color.FromArgb(255, 255, 255, 255);
+                errorMessage.BringToFront();
+                LblBackground.Visible = false;
+                mainPage.Controls.Add(errorMessage);
+
+                noInternetConnection = true;
+            }
+            
             CheckIfIsLoggedIn();
         }
 
         private void MainPage_Load(object sender, EventArgs e)
         {
-            ShowAllMemes();
+            if(!noInternetConnection) ShowAllMemes();
         }
 
         public void CheckIfIsLoggedIn()

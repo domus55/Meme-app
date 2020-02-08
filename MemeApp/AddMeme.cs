@@ -46,15 +46,22 @@ namespace MemeApp
             if(imgLoc == "")
             {
                 LblInputError.Font = new Font("Microsoft Sans Serif", 12);
-                LblInputError.Text = "You have to chose an image";
+                LblInputError.Text = "You have to choose an image";
                 LblInputError.Visible = true;
                 return;
             }
             
+            try
             {
                 DataAccess.SaveImage(TxtBoxTitle.Text, imgLoc);
                 Meme.ShowMeme(DataAccess.CountAllMemes());
                 Close();
+            }
+            catch
+            {
+                LblInputError.Font = new Font("Microsoft Sans Serif", 14);
+                LblInputError.Text = "No internet connection!";
+                LblInputError.Visible = true;
             }
         }
 
