@@ -11,6 +11,9 @@ namespace MemeApp
     {
         static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Meme"].ConnectionString;
 
+        /// <summary>
+        /// Saves meme into database
+        /// </summary>
         public static void SaveImage(string title, string picLoc)
         {
             byte[] img = null;
@@ -33,6 +36,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Returns meme with provided id
+        /// </summary>
         public static Meme ShowImage(int id)
         {
             Meme meme = new Meme();
@@ -78,6 +84,9 @@ namespace MemeApp
             return meme;
         }
 
+        /// <summary>
+        /// Returns true if there is user with this username and provided password
+        /// </summary>
         public static bool LogIn(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -106,6 +115,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Returns true if this username already exists in the database
+        /// </summary>
         public static bool CheckIfUsernameExists(string username)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -133,6 +145,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Returns id of the username
+        /// </summary>
         public static int GetUserId(string username)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -160,6 +175,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Creates new user with provided username and password in the database
+        /// </summary>
         public static void CreateNewUser(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -177,6 +195,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Returns how many memes are in the database;
+        /// </summary>
         public static int CountAllMemes()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -202,6 +223,10 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Adds or substract points in meme with provided id
+        /// Don't forget to call 'SetPointsOnMeme' method to save what user clicked
+        /// </summary>
         public static void AddPointsToMeme(int memeId, int pointsToAdd)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -214,13 +239,22 @@ namespace MemeApp
                 command.Parameters.Add("@points", SqlDbType.Int).Value = points + pointsToAdd;
                 connection.Open();
                 command.ExecuteNonQuery();
+            }
+        }
 
-                com = "select count(id) from Points where User_id = @User_id AND Meme_id = @Meme_id";
-                command = new SqlCommand(com, connection);
+        /// <summary>
+        /// Saves to database if user clicked upvote(point = 1), downvote(points = -1), or clicked nothing(points = 0);
+        /// </summary>
+        public static void SetPointsOnMeme(int memeId, int points)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                bool memeHasAlreadyVote = false;
+                string com = "select count(id) from Points where User_id = @User_id AND Meme_id = @Meme_id";
+                SqlCommand command = new SqlCommand(com, connection);
                 command.Parameters.Add("@User_id", SqlDbType.Int).Value = Account.id;
                 command.Parameters.Add("@Meme_id", SqlDbType.Int).Value = memeId;
-
-                bool memeHasAlreadyVote = false;
+                connection.Open();
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -231,13 +265,13 @@ namespace MemeApp
                     reader.Close();
                 }
 
-                if(memeHasAlreadyVote)
+                if (memeHasAlreadyVote)
                 {
                     com = "UPDATE Points SET Points = @Points where User_id = @User_id AND Meme_id = @Meme_id";
                     command = new SqlCommand(com, connection);
                     command.Parameters.Add("@User_id", SqlDbType.Int).Value = Account.id;
                     command.Parameters.Add("@Meme_id", SqlDbType.Int).Value = memeId;
-                    command.Parameters.Add("@Points", SqlDbType.Int).Value = pointsToAdd;
+                    command.Parameters.Add("@Points", SqlDbType.Int).Value = points;
                     command.ExecuteNonQuery();
                 }
                 else
@@ -246,12 +280,15 @@ namespace MemeApp
                     command = new SqlCommand(com, connection);
                     command.Parameters.Add("@User_id", SqlDbType.Int).Value = Account.id;
                     command.Parameters.Add("@Meme_id", SqlDbType.Int).Value = memeId;
-                    command.Parameters.Add("@Points", SqlDbType.Int).Value = pointsToAdd;
+                    command.Parameters.Add("@Points", SqlDbType.Int).Value = points;
                     command.ExecuteNonQuery();
                 }
             }
         }
 
+        /// <summary>
+        /// Returns how meny points have meme with provided id
+        /// </summary>
         public static int CountPointsInMeme(int memeId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

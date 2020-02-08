@@ -111,6 +111,12 @@ namespace MemeApp
             SetLocation();
 
             MainPage.mainPage.BringEverythingToFront();
+
+            if (Account.username == "Guest")
+            {
+                meme.upvote.Visible = false;
+                meme.downvote.Visible = false;
+            }
         }
 
         private static void MouseWheel(object sender, MouseEventArgs e)
@@ -120,6 +126,7 @@ namespace MemeApp
 
         void UpvoteClick(object sender, MouseEventArgs e)
         {
+
             if (pointsAddedByThisUser == -1)
             {
                 DataAccess.AddPointsToMeme(id, 1);
@@ -132,16 +139,16 @@ namespace MemeApp
             if (pointsAddedByThisUser == 1)
             {
                 btn.BackgroundImage = imgUpvoteClicked;
-                DataAccess.AddPointsToMeme(id, 1); 
+                DataAccess.AddPointsToMeme(id, 1);
             }
             else
             {
                 DataAccess.AddPointsToMeme(id, -1);
-                DataAccess.AddPointsToMeme(id, 0);
                 btn.BackgroundImage = imgUpvoteNormal;
             }
 
-            ShowPointsAndComments();
+            DataAccess.SetPointsOnMeme(id, pointsAddedByThisUser);
+            ShowPointsAndComments();   
         }
 
         void DownvoteClick(object sender, MouseEventArgs e)
@@ -166,8 +173,9 @@ namespace MemeApp
             {
                 btn.BackgroundImage = imgDownvoteNormal;
                 DataAccess.AddPointsToMeme(id, 1);
-                DataAccess.AddPointsToMeme(id, 0);
             }
+
+            DataAccess.SetPointsOnMeme(id, pointsAddedByThisUser);
             ShowPointsAndComments();
         }
 

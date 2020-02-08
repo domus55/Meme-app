@@ -13,6 +13,8 @@ namespace MemeApp
         public static bool noInternetConnection = false;
         AddMeme formAddMeme = new AddMeme();
         LogIn formLogIn = new LogIn();
+        Label lblYouHaveToLogInFirst = new Label();
+        Button btnLoginRegister = new Button();
 
         public float height = 0;
         List<PictureBox> pics = new List<PictureBox>();
@@ -50,6 +52,8 @@ namespace MemeApp
         private void MainPage_Load(object sender, EventArgs e)
         {
             if(!noInternetConnection) ShowAllMemes();
+            this.Controls.Add(lblYouHaveToLogInFirst);
+            this.Controls.Add(btnLoginRegister);
         }
 
         public void CheckIfIsLoggedIn()
