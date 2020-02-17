@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -23,7 +24,7 @@ namespace MemeApp
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string com = "Insert into Memes(Creator_Id, Title, Image) values(@Id, @Title, @Img)";
+                string com = "Insert into Memes(Creator_Id, Title, Image, Points, Comments) values(@Id, @Title, @Img, 0, 0)";
                 SqlCommand command = new SqlCommand(com, connection);
 
                 command.Parameters.Add("Id", SqlDbType.VarChar).Value = Account.id;
@@ -45,7 +46,7 @@ namespace MemeApp
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string com = "Select Title, Image, Points from Memes Where id=@id";
+                string com = "Select Title, Image from Memes Where id=@id";
                 SqlCommand command = new SqlCommand(com, connection);
                 command.Parameters.Add("id", SqlDbType.VarChar).Value = id;
                 connection.Open();
@@ -61,8 +62,7 @@ namespace MemeApp
 
                         meme.image = Image.FromStream(ms);
                         meme.title = title;
-                        meme.points = (int)reader[2];
-                        meme.id = id;
+                        meme.idInDatabase = id;
                     }
                 }
 
@@ -84,6 +84,79 @@ namespace MemeApp
             return meme;
         }
 
+        /// <summary>
+        /// Returns comment with provided id
+        /// </summary>
+        public static Comment ShowComments(int id)
+        {
+            Comment comment = new Comment();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "Select Accounts.Username, Comments.CommentText from Comments, Accounts where Comments.id=@id AND Comments.userId = Accounts.id";//ma pobierać nazwę usera, jego miniaturkę i komentarz
+                SqlCommand command = new SqlCommand(com, connection);
+                command.Parameters.Add("id", SqlDbType.VarChar).Value = id;
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string username = reader[0].ToString();//poprawić
+                        string text = reader[1].ToString();
+                        //byte[] img = (byte[])reader[1];
+
+                        //MemoryStream ms = new MemoryStream(img);
+
+                        comment.username = username;
+                        //comment.image = Image.FromStream(ms);
+                        comment.text = text;
+                        comment.idInDatabase = id;
+                    }
+                }
+
+                /*com = "Select Points from Points where User_id = @User_id AND Meme_id = @Meme_id";
+                command = new SqlCommand(com, connection);
+                command.Parameters.Add("@User_id", SqlDbType.Int).Value = Account.id;
+                command.Parameters.Add("@Meme_id", SqlDbType.Int).Value = id;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        meme.pointsAddedByThisUser = (int)reader[0];
+                    }
+                }
+                connection.Close();*/
+            }
+
+            return comment;
+        }
+
+        /// <summary>
+        /// Returns list of comments id of meme
+        /// </summary>
+        public static List<int> returnCommentsIds(int memeId)
+        {
+            List<int> comments = new List<int>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "Select id from Comments where memeId=@memeId";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.Parameters.Add("memeId", SqlDbType.VarChar).Value = memeId;
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        comments.Add((int)reader[0]);
+                    }
+                }
+            }
+            return comments;
+        }
         /// <summary>
         /// Returns true if there is user with this username and provided password
         /// </summary>
@@ -287,7 +360,7 @@ namespace MemeApp
         }
 
         /// <summary>
-        /// Returns how meny points have meme with provided id
+        /// Returns how many points have meme with provided id
         /// </summary>
         public static int CountPointsInMeme(int memeId)
         {
@@ -310,6 +383,50 @@ namespace MemeApp
                 }
 
                 return points;
+            }
+        }
+
+        /// <summary>
+        /// Returns how many comments have meme with provided id
+        /// </summary>
+        public static int CountCommentsInMeme(int memeId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "Select Comments from Memes where id = @id";
+                SqlCommand command = new SqlCommand(com, connection);
+                command.Parameters.Add("@id", SqlDbType.Int).Value = memeId;
+
+                connection.Open();
+                int comments = 0;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        comments = (int)reader[0];
+                    }
+                    reader.Close();
+                }
+
+                return comments;
+            }
+        }
+
+        public static void AddComment(int memeId, int userId, string commentText)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "dbo.AddComment";
+                SqlCommand command = new SqlCommand(com, connection);
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@memeId", SqlDbType.Int).Value = memeId;
+                command.Parameters.Add("@userId", SqlDbType.Int).Value = userId;
+                command.Parameters.Add("@commentText", SqlDbType.NVarChar).Value = commentText;
+
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

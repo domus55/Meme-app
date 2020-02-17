@@ -9,6 +9,7 @@ namespace MemeApp
     public partial class MainPage : Form
     {
         public static MainPage mainPage;
+        public static OpenMeme formShowMeme = new OpenMeme();
         public static bool darkMode = true;
         public static bool noInternetConnection = false;
         AddMeme formAddMeme = new AddMeme();
@@ -89,8 +90,18 @@ namespace MemeApp
         ///</summary>
         public void MouseWheel(object sender, MouseEventArgs e)
         {
-            height += e.Delta * 0.4f;
-            if (height > 0) height = 0;
+            if(OpenMeme.thisFormIsShown)
+            {
+                OpenMeme.height += e.Delta * 0.4f;
+                if (OpenMeme.height > -45) OpenMeme.height = -45;
+                OpenMeme.openMeme.SetLocation();
+                Comment.SetLocation();
+            }
+            else
+            {
+                height += e.Delta * 0.4f;
+                if (height > 0) height = 0;
+            }
 
             Meme.SetLocation();
         }
@@ -102,7 +113,6 @@ namespace MemeApp
             for(int i = 0; i<allMemes; i++)
             {
                 Meme.ShowMeme(i+1);
-                //Meme.ShowMeme(1);
             }
         }
 
@@ -130,17 +140,17 @@ namespace MemeApp
             ShowAccountMenu(false);
         }
 
-        ///<summary>
-        ///show account menu if it is hidden or hide it if it is visible
-        ///</summary>
+        /// <summary>
+        /// Shows account menu if it is hidden or hide it if it is visible
+        /// </summary>
         private void ShowAccountMenu()
         {
             ShowAccountMenu(!PicBoxAccountMenu.Visible);
         }
 
-        ///<summary>
-        ///show/hide account menu
-        ///</summary>
+        /// <summary>
+        /// Show/hide account menu
+        /// </summary>
         private void ShowAccountMenu(bool show)
         {
             PicBoxAccountMenu.Visible = show;
@@ -167,6 +177,7 @@ namespace MemeApp
         public void ReloadForm()
         {
             Meme.memes.Clear();
+            Meme.memesNotFound = 0;
             this.Controls.Clear();
             this.InitializeComponent();
             ShowAllMemes();
