@@ -18,7 +18,7 @@ namespace MemeApp
         public static int memeIdInDatabase = 0;
         public static float height = 20;
         TextBox txtBoxWriteComment = new TextBox();
-        Button btnSendComment = new Button();
+        Button btnAddComment = new Button();
 
         public OpenMeme()
         {
@@ -26,8 +26,9 @@ namespace MemeApp
             openMeme = this;
             this.FormClosing += new FormClosingEventHandler(Form_Closing);
             LblBackground.MouseWheel += MouseWheel;
-            btnSendComment.MouseWheel += MouseWheel;
-            btnSendComment.Click += SendMessage;
+            btnAddComment.MouseWheel += MouseWheel;
+            txtBoxWriteComment.MouseWheel += TextBoxMouseWheel;
+            btnAddComment.Click += AddComment;
         }
 
         private void ShowMeme_Load(object sender, EventArgs e)
@@ -38,28 +39,32 @@ namespace MemeApp
         private void LoadForm()
         {
             txtBoxWriteComment.Location = new Point(0, 635);
-            txtBoxWriteComment.Font = new Font("Arial", 20);
+            txtBoxWriteComment.Font = new Font("Arial", 12);
             txtBoxWriteComment.BackColor = Color.FromArgb(255, 51, 51, 51);
             txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
             txtBoxWriteComment.Text = "Write comment";
             txtBoxWriteComment.Width = 400;
+            txtBoxWriteComment.Height = 50;
             txtBoxWriteComment.TabStop = false;
+            txtBoxWriteComment.Multiline = true;
+            txtBoxWriteComment.MaxLength = 1000;
             txtBoxWriteComment.GotFocus += TextBoxWriteCommentGotFocus;
+            txtBoxWriteComment.KeyDown += TextBoxKeyPress;
 
-            btnSendComment.Location = new Point(410, 635);
-            btnSendComment.Font = new Font("Arial", 20);
-            btnSendComment.BackColor = Color.FromArgb(255, 10, 10, 10);
-            btnSendComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
-            btnSendComment.Text = "Send";
-            btnSendComment.FlatStyle = FlatStyle.Flat;
-            btnSendComment.Width = 150;
-            btnSendComment.Height = 38;
-            btnSendComment.TabStop = false;
+            btnAddComment.Location = new Point(410, 635);
+            btnAddComment.Font = new Font("Arial", 20);
+            btnAddComment.BackColor = Color.FromArgb(255, 10, 10, 10);
+            btnAddComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+            btnAddComment.Text = "Send";
+            btnAddComment.FlatStyle = FlatStyle.Flat;
+            btnAddComment.Width = 150;
+            btnAddComment.Height = 50;
+            btnAddComment.TabStop = false;
 
             this.Controls.Add(txtBoxWriteComment);
-            this.Controls.Add(btnSendComment);
+            this.Controls.Add(btnAddComment);
             txtBoxWriteComment.BringToFront();
-            btnSendComment.BringToFront();
+            btnAddComment.BringToFront();
         }
 
         public void OpenComments()
@@ -77,6 +82,11 @@ namespace MemeApp
             MainPage.mainPage.MouseWheel(sender, e);
         }
 
+        private static void TextBoxMouseWheel(object sender, MouseEventArgs e)
+        {
+            if(OpenMeme.openMeme.txtBoxWriteComment.Text.Length < 82) MainPage.mainPage.MouseWheel(sender, e);
+        }
+
         private void TextBoxWriteCommentGotFocus(Object sender, EventArgs e)
         {
             if (txtBoxWriteComment.Text == "Write comment")
@@ -87,11 +97,22 @@ namespace MemeApp
             txtBoxWriteComment.ForeColor = Color.FromArgb(255, 255, 255, 255);
         }
 
-        private void SendMessage(Object sender, EventArgs e)
+        private void TextBoxKeyPress(Object sender, EventArgs e)
+        {
+            if(txtBoxWriteComment.Text.Length >= 82) txtBoxWriteComment.ScrollBars = ScrollBars.Vertical;
+            else txtBoxWriteComment.ScrollBars = ScrollBars.None;
+        }
+
+        private void AddComment(Object sender, EventArgs e)
         {
             if (txtBoxWriteComment.Text != "") DataAccess.AddComment(memeIdInDatabase, Account.id, txtBoxWriteComment.Text);
 
-            txtBoxWriteComment.Text = "";
+            txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+            txtBoxWriteComment.Text = "Write comment";
+
+            List<int> comments = DataAccess.returnCommentsIds(memeIdInDatabase);
+            Comment.ShowComment(comments[comments.Count - 1]);
+            Comment.SetLocation();
         }
 
         private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -116,8 +137,8 @@ namespace MemeApp
 
         public void SetLocation()
         {
-            txtBoxWriteComment.Location = new Point(0, 680 + (int)height);
-            btnSendComment.Location = new Point(410, 680 + (int)height);
+            txtBoxWriteComment.Location = new Point(10, 680 + (int)height);
+            btnAddComment.Location = new Point(420, 680 + (int)height);
         }
     }
 }

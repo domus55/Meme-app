@@ -54,7 +54,6 @@ namespace MemeApp
             comment.lblText.MaximumSize = new Size(500, 2000);
             comment.lblText.Font = new Font("Arial", 14);
             comment.lblText.AutoSize = true;
-            
 
             //Initialize user picturebox
             comment.picBoxUserImage = new PictureBox();
