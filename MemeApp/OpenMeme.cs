@@ -32,6 +32,11 @@ namespace MemeApp
 
         private void ShowMeme_Load(object sender, EventArgs e)
         {
+            LoadForm();
+        }
+
+        private void LoadForm()
+        {
             txtBoxWriteComment.Location = new Point(0, 635);
             txtBoxWriteComment.Font = new Font("Arial", 20);
             txtBoxWriteComment.BackColor = Color.FromArgb(255, 51, 51, 51);
@@ -95,8 +100,18 @@ namespace MemeApp
             MainPage.mainPage.Location = this.Location;
             this.Hide();
             thisFormIsShown = false;
+            ReloadForm();
             Meme.CloseMeme(memeIdInArray);
             e.Cancel = true;
+        }
+
+        private void ReloadForm()
+        {
+            Comment.comments.Clear();
+            Controls.Clear();
+            InitializeComponent();
+            LoadForm();
+            LblBackground.MouseWheel += MouseWheel;
         }
 
         public void SetLocation()

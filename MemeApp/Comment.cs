@@ -20,7 +20,8 @@ namespace MemeApp
         private Label lblUsername;
         private Label lblText;
         private PictureBox picBoxUserImage;
-        private const int interspaceBetweenComments = 500;
+        private int height;
+        private const int interspaceBetweenComments = 50;
 
         public Comment()
         {
@@ -33,12 +34,12 @@ namespace MemeApp
         /// </summary>
         public static void ShowComment(int id)
         {
-            Comment comment = DataAccess.ShowComments(id + memesNotFound);
+            Comment comment = DataAccess.ShowComment(id + memesNotFound);
 
             while (comment.text == null)
             {
                 memesNotFound++;
-                comment = DataAccess.ShowComments(id + memesNotFound);
+                comment = DataAccess.ShowComment(id + memesNotFound);
             }
 
             //Initialize username label
@@ -50,8 +51,10 @@ namespace MemeApp
             //Initialize text label
             comment.lblText.Text = comment.text;
             comment.lblText.ForeColor = Color.FromArgb(255, 255, 255, 255);
+            comment.lblText.MaximumSize = new Size(500, 2000);
             comment.lblText.Font = new Font("Arial", 14);
             comment.lblText.AutoSize = true;
+            
 
             //Initialize user picturebox
             comment.picBoxUserImage = new PictureBox();
@@ -76,9 +79,17 @@ namespace MemeApp
             comments.Add(comment);
             SetLocation();
 
+            //Set height
+            if(comment.idInArray == 0)
+            {
+                comment.height = 0;
+            }
+            else
+            {
+                int prevCommentHeight = comments[comment.idInArray - 1].height;
+                comment.height = prevCommentHeight + comments[comment.idInArray - 1].lblText.Height + interspaceBetweenComments;
+            }
             
-
-            //MainPage.mainPage.BringEverythingToFront();
         }
 
         private static void MouseWheel(object sender, MouseEventArgs e)
@@ -95,9 +106,9 @@ namespace MemeApp
 
             for (int i = 0; i < comments.Count; i++)
             {
-                comments[i].lblUsername.Location = new Point(70, height + 800 + interspaceBetweenComments * i);
-                comments[i].lblText.Location = new Point(70, height + 840 + interspaceBetweenComments * i);
-                comments[i].picBoxUserImage.Location = new Point(10, height + 800 + interspaceBetweenComments * i);
+                comments[i].lblUsername.Location = new Point(70, height + 800 + comments[i].height);
+                comments[i].lblText.Location = new Point(70, height + 840 + comments[i].height);
+                comments[i].picBoxUserImage.Location = new Point(10, height + 800 + comments[i].height);
             }
         }
     }

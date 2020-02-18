@@ -87,13 +87,13 @@ namespace MemeApp
         /// <summary>
         /// Returns comment with provided id
         /// </summary>
-        public static Comment ShowComments(int id)
+        public static Comment ShowComment(int id)
         {
             Comment comment = new Comment();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string com = "Select Accounts.Username, Comments.CommentText from Comments, Accounts where Comments.id=@id AND Comments.userId = Accounts.id";//ma pobierać nazwę usera, jego miniaturkę i komentarz
+                string com = "Select Accounts.Username, Accounts.Image, Comments.CommentText from Comments, Accounts where Comments.id=@id AND Comments.userId = Accounts.id";
                 SqlCommand command = new SqlCommand(com, connection);
                 command.Parameters.Add("id", SqlDbType.VarChar).Value = id;
                 connection.Open();
@@ -102,14 +102,15 @@ namespace MemeApp
                 {
                     while (reader.Read())
                     {
-                        string username = reader[0].ToString();//poprawić
-                        string text = reader[1].ToString();
-                        //byte[] img = (byte[])reader[1];
+                        string username = reader[0].ToString();
+                        byte[] img = (byte[])reader[1];
+                        string text = reader[2].ToString();
+                        
 
-                        //MemoryStream ms = new MemoryStream(img);
+                        MemoryStream ms = new MemoryStream(img);
 
                         comment.username = username;
-                        //comment.image = Image.FromStream(ms);
+                        comment.image = Image.FromStream(ms);
                         comment.text = text;
                         comment.idInDatabase = id;
                     }
@@ -134,7 +135,7 @@ namespace MemeApp
         }
 
         /// <summary>
-        /// Returns list of comments id of meme
+        /// Returns list of comments ids of meme
         /// </summary>
         public static List<int> returnCommentsIds(int memeId)
         {
@@ -157,6 +158,7 @@ namespace MemeApp
             }
             return comments;
         }
+
         /// <summary>
         /// Returns true if there is user with this username and provided password
         /// </summary>
@@ -185,6 +187,34 @@ namespace MemeApp
 
                 connection.Close();
                 return canLogIn;
+            }
+        }
+
+        public static Image GetUserImage(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "select image from accounts where id = @id";
+                SqlCommand command = new SqlCommand(com, connection);
+
+                command.Parameters.Add("id", SqlDbType.Int).Value = userId;
+
+                connection.Open();
+
+                MemoryStream ms = new MemoryStream();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        byte[] img = (byte[])reader[0];
+
+                        ms = new MemoryStream(img);
+                    }
+                }
+
+                connection.Close();
+                return Image.FromStream(ms);
             }
         }
 
@@ -253,6 +283,16 @@ namespace MemeApp
         /// </summary>
         public static void CreateNewUser(string username, string password)
         {
+            Random rnd = new Random();
+
+            int imageNumber = rnd.Next() % 5 + 1;
+
+            string picLoc = "Images/UserIcons/" + imageNumber + ".png";
+            byte[] img = null;
+            FileStream fs = new FileStream(picLoc, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            img = br.ReadBytes((int)fs.Length);
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string com = "dbo.CreateNewUser";
@@ -261,6 +301,7 @@ namespace MemeApp
 
                 command.Parameters.Add("Username", SqlDbType.NVarChar).Value = username;
                 command.Parameters.Add("Password", SqlDbType.NVarChar).Value = password;
+                command.Parameters.Add("Image", SqlDbType.Image).Value = img;
 
                 connection.Open();
                 command.ExecuteNonQuery();

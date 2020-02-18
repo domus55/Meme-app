@@ -74,6 +74,8 @@ namespace MemeApp
 
                 PicBoxUserIcon.Enabled = true;
                 PicBoxUserIcon.Visible = true;
+
+                PicBoxUserIcon.Image = Account.image;
             }
         }
 

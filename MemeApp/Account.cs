@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MemeApp
 {
     public class Account
     {
+        public static Image image;
         public static string username = "";
         public static string password = "";
         public static int id = 1;
@@ -44,7 +46,8 @@ namespace MemeApp
                 CreateAccountDataFile();
             }
 
-            Account.id = DataAccess.GetUserId(username);
+            id = DataAccess.GetUserId(username);
+            image = DataAccess.GetUserImage(id);
         }
 
         public static void CreateAccountDataFile(string username = "Guest", string password="")
@@ -56,6 +59,7 @@ namespace MemeApp
             Account.username = username;
             Account.password = password;
             Account.id = DataAccess.GetUserId(username);
+            image = DataAccess.GetUserImage(id);
         }
 
         ///<summary>
