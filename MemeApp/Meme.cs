@@ -233,7 +233,7 @@ namespace MemeApp
             SetLocation();
         }
 
-        private void ShowPointsAndComments()
+        public void ShowPointsAndComments()
         {
             pointsAndComments.Text = DataAccess.CountPointsInMeme(idInDatabase).ToString() + " points, " + DataAccess.CountCommentsInMeme(idInDatabase).ToString() + " comments";
         }

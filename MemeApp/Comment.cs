@@ -16,11 +16,11 @@ namespace MemeApp
         public string text;
         public int idInDatabase;
         public int idInArray;
+        public int height;
         public Image image;
         private Label lblUsername;
         private Label lblText;
         private PictureBox picBoxUserImage;
-        private int height;
         private const int interspaceBetweenComments = 50;
 
         public Comment()
@@ -105,9 +105,9 @@ namespace MemeApp
 
             for (int i = 0; i < comments.Count; i++)
             {
-                comments[i].lblUsername.Location = new Point(70, height + 800 + comments[i].height);
-                comments[i].lblText.Location = new Point(70, height + 840 + comments[i].height);
-                comments[i].picBoxUserImage.Location = new Point(10, height + 800 + comments[i].height);
+                comments[i].lblUsername.Location = new Point(70, height + 740 + comments[i].height);
+                comments[i].lblText.Location = new Point(70, height + 780 + comments[i].height);
+                comments[i].picBoxUserImage.Location = new Point(10, height + 740 + comments[i].height);
             }
         }
     }

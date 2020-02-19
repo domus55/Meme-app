@@ -17,8 +17,9 @@ namespace MemeApp
         public static int memeIdInArray = 0;
         public static int memeIdInDatabase = 0;
         public static float height = 20;
-        TextBox txtBoxWriteComment = new TextBox();
-        Button btnAddComment = new Button();
+        private List<int> comments;
+        private TextBox txtBoxWriteComment = new TextBox();
+        private Button btnAddComment = new Button();
 
         public OpenMeme()
         {
@@ -69,11 +70,19 @@ namespace MemeApp
 
         public void OpenComments()
         {
-            List<int> comments = DataAccess.returnCommentsIds(memeIdInDatabase);
+            comments = DataAccess.returnCommentsIds(memeIdInDatabase);
 
-            for (int i = 0; i < comments.Count; i++)
+            if(comments.Count >= 2)
             {
-                Comment.ShowComment(comments[i]);
+                Comment.ShowComment(comments[0]);
+                Comment.ShowComment(comments[1]);
+            }
+            else
+            {
+                for (int i = 0; i < comments.Count; i++)
+                {
+                    Comment.ShowComment(comments[i]);
+                }
             }
         }
 
@@ -113,6 +122,7 @@ namespace MemeApp
             List<int> comments = DataAccess.returnCommentsIds(memeIdInDatabase);
             Comment.ShowComment(comments[comments.Count - 1]);
             Comment.SetLocation();
+            Meme.memes[memeIdInArray].ShowPointsAndComments();
         }
 
         private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -139,6 +149,14 @@ namespace MemeApp
         {
             txtBoxWriteComment.Location = new Point(10, 680 + (int)height);
             btnAddComment.Location = new Point(420, 680 + (int)height);
+
+            if (comments.Count > 2)
+            {
+                while ((Comment.comments[Comment.comments.Count - 1].height + 50) < -height && Comment.comments.Count < comments.Count)
+                {
+                    Comment.ShowComment(comments[Comment.comments.Count]);
+                }
+            }
         }
     }
 }
