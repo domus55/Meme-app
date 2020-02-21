@@ -70,7 +70,7 @@ namespace MemeApp
 
         public void OpenComments()
         {
-            comments = DataAccess.returnCommentsIds(memeIdInDatabase);
+            comments = DataAccess.ReturnCommentsIds(memeIdInDatabase);
 
             if(comments.Count >= 2)
             {
@@ -119,7 +119,7 @@ namespace MemeApp
             txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
             txtBoxWriteComment.Text = "Write comment";
 
-            List<int> comments = DataAccess.returnCommentsIds(memeIdInDatabase);
+            List<int> comments = DataAccess.ReturnCommentsIds(memeIdInDatabase);
             Comment.ShowComment(comments[comments.Count - 1]);
             Comment.SetLocation();
             Meme.memes[memeIdInArray].ShowPointsAndComments();

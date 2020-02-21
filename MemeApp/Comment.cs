@@ -60,7 +60,7 @@ namespace MemeApp
             comment.picBoxUserImage.Image = comment.image;
             comment.picBoxUserImage.Height = 50;
             comment.picBoxUserImage.Width = 50;
-            comment.picBoxUserImage.SizeMode = PictureBoxSizeMode.Zoom;
+            comment.picBoxUserImage.SizeMode = PictureBoxSizeMode.StretchImage;
 
             //Handle events
             comment.picBoxUserImage.MouseWheel += MouseWheel;

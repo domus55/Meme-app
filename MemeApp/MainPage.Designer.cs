@@ -92,7 +92,7 @@
             this.PicBoxUserIcon.Location = new System.Drawing.Point(1010, 4);
             this.PicBoxUserIcon.Name = "PicBoxUserIcon";
             this.PicBoxUserIcon.Size = new System.Drawing.Size(50, 50);
-            this.PicBoxUserIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicBoxUserIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PicBoxUserIcon.TabIndex = 4;
             this.PicBoxUserIcon.TabStop = false;
             this.PicBoxUserIcon.Click += new System.EventHandler(this.PicBoxUserIcon_Click);
@@ -119,6 +119,7 @@
             this.BtnAccountSettings.Text = "Settings";
             this.BtnAccountSettings.UseVisualStyleBackColor = false;
             this.BtnAccountSettings.Visible = false;
+            this.BtnAccountSettings.Click += new System.EventHandler(this.BtnAccountSettings_Click);
             // 
             // BtnLogout
             // 

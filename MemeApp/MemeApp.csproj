@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="AccountSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountSettings.Designer.cs">
+      <DependentUpon>AccountSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddMeme.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,15 @@
     <Compile Include="OpenMeme.Designer.cs">
       <DependentUpon>OpenMeme.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AccountSettings.resx">
+      <DependentUpon>AccountSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddMeme.dje.resx">
       <DependentUpon>AddMeme.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="OpenMeme.resx">
       <DependentUpon>OpenMeme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

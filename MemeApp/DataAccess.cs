@@ -137,7 +137,7 @@ namespace MemeApp
         /// <summary>
         /// Returns list of comments ids of meme
         /// </summary>
-        public static List<int> returnCommentsIds(int memeId)
+        public static List<int> ReturnCommentsIds(int memeId)
         {
             List<int> comments = new List<int>();
 
@@ -190,6 +190,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Returns image of user with provided id
+        /// </summary>
         public static Image GetUserImage(int userId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -454,6 +457,9 @@ namespace MemeApp
             }
         }
 
+        /// <summary>
+        /// Adds comment to database
+        /// </summary>
         public static void AddComment(int memeId, int userId, string commentText)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -468,6 +474,27 @@ namespace MemeApp
 
                 connection.Open();
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public static void ChangeUserImage(int userId, string imgLoc)
+        {
+            byte[] img = null;
+            FileStream fs = new FileStream(imgLoc, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            img = br.ReadBytes((int)fs.Length);
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "UPDATE Accounts SET Image = @Image where id = @id";
+                SqlCommand command = new SqlCommand(com, connection);
+
+                command.Parameters.Add("id", SqlDbType.VarChar).Value = userId;
+                command.Parameters.Add("Image", SqlDbType.Image).Value = img;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
             }
         }
     }

@@ -10,6 +10,7 @@ namespace MemeApp
     {
         public static MainPage mainPage;
         public static OpenMeme formShowMeme = new OpenMeme();
+        public static AccountSettings formAccountSettings = new AccountSettings();
         public static bool darkMode = true;
         public static bool noInternetConnection = false;
         AddMeme formAddMeme = new AddMeme();
@@ -77,6 +78,12 @@ namespace MemeApp
 
                 PicBoxUserIcon.Image = Account.image;
             }
+        }
+
+        public void RefreshUserImage()
+        {
+            Account.LoadDataFromFile();
+            PicBoxUserIcon.Image = Account.image;
         }
 
         public void BringEverythingToFront()
@@ -185,6 +192,13 @@ namespace MemeApp
             ShowAllMemes();
             this.LblBackground.MouseWheel += MouseWheel;
             CheckIfIsLoggedIn();
+        }
+
+        private void BtnAccountSettings_Click(object sender, EventArgs e)
+        {
+            formAccountSettings.Show();
+            formAccountSettings.Location = this.Location;
+            this.Hide();
         }
     }
 }
