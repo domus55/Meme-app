@@ -497,5 +497,21 @@ namespace MemeApp
                 connection.Close();
             }
         }
+
+        public static void ChangePassword(int userId, string newPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string com = "UPDATE Accounts SET Password = @Password where id = @id";
+                SqlCommand command = new SqlCommand(com, connection);
+
+                command.Parameters.Add("id", SqlDbType.VarChar).Value = userId;
+                command.Parameters.Add("Password", SqlDbType.VarChar).Value = newPassword;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
     }
 }

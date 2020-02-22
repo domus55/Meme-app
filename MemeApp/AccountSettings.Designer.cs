@@ -32,6 +32,7 @@
             this.PicBoxUserImage = new System.Windows.Forms.PictureBox();
             this.BtnChangeImage = new System.Windows.Forms.Button();
             this.LblUsername = new System.Windows.Forms.Label();
+            this.BtnChangePassword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,12 +70,27 @@
             this.LblUsername.TabIndex = 2;
             this.LblUsername.Text = "Username:";
             // 
+            // BtnChangePassword
+            // 
+            this.BtnChangePassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.BtnChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.BtnChangePassword.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.BtnChangePassword.Location = new System.Drawing.Point(346, 71);
+            this.BtnChangePassword.Name = "BtnChangePassword";
+            this.BtnChangePassword.Size = new System.Drawing.Size(283, 45);
+            this.BtnChangePassword.TabIndex = 4;
+            this.BtnChangePassword.Text = "Change password";
+            this.BtnChangePassword.UseVisualStyleBackColor = false;
+            this.BtnChangePassword.Click += new System.EventHandler(this.BtnChangePassword_Click);
+            // 
             // AccountSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.BtnChangePassword);
             this.Controls.Add(this.LblUsername);
             this.Controls.Add(this.BtnChangeImage);
             this.Controls.Add(this.PicBoxUserImage);
@@ -95,5 +111,6 @@
         private System.Windows.Forms.PictureBox PicBoxUserImage;
         private System.Windows.Forms.Button BtnChangeImage;
         private System.Windows.Forms.Label LblUsername;
+        private System.Windows.Forms.Button BtnChangePassword;
     }
 }

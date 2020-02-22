@@ -12,6 +12,8 @@ namespace MemeApp
 {
     public partial class AccountSettings : Form
     {
+        public static ChangePassword formChangePassword = new ChangePassword();
+
         public AccountSettings()
         {
             InitializeComponent();
@@ -56,6 +58,13 @@ namespace MemeApp
             MainPage.mainPage.Location = this.Location;
             this.Hide();
             e.Cancel = true;
+        }
+
+        private void BtnChangePassword_Click(object sender, EventArgs e)
+        {
+            formChangePassword.Show();
+            formChangePassword.Location = this.Location;
+            this.Hide();
         }
     }
 }
