@@ -37,9 +37,11 @@
             this.PicBoxAccountMenu = new System.Windows.Forms.PictureBox();
             this.BtnAccountSettings = new System.Windows.Forms.Button();
             this.BtnLogout = new System.Windows.Forms.Button();
+            this.PicBoxNightMode = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAccountMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNightMode)).BeginInit();
             this.SuspendLayout();
             // 
             // LblBackground
@@ -135,12 +137,25 @@
             this.BtnLogout.Visible = false;
             this.BtnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
+            // PicBoxNightMode
+            // 
+            this.PicBoxNightMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.PicBoxNightMode.Image = ((System.Drawing.Image)(resources.GetObject("PicBoxNightMode.Image")));
+            this.PicBoxNightMode.Location = new System.Drawing.Point(912, 14);
+            this.PicBoxNightMode.Name = "PicBoxNightMode";
+            this.PicBoxNightMode.Size = new System.Drawing.Size(30, 30);
+            this.PicBoxNightMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PicBoxNightMode.TabIndex = 21;
+            this.PicBoxNightMode.TabStop = false;
+            this.PicBoxNightMode.Click += new System.EventHandler(this.PicBoxNightMode_Click);
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.PicBoxNightMode);
             this.Controls.Add(this.BtnLogout);
             this.Controls.Add(this.BtnAccountSettings);
             this.Controls.Add(this.PicBoxAccountMenu);
@@ -159,6 +174,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxTopBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxUserIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxAccountMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBoxNightMode)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,6 +189,7 @@
         private System.Windows.Forms.PictureBox PicBoxAccountMenu;
         private System.Windows.Forms.Button BtnAccountSettings;
         private System.Windows.Forms.Button BtnLogout;
+        private System.Windows.Forms.PictureBox PicBoxNightMode;
     }
 }
 

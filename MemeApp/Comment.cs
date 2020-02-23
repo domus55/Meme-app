@@ -76,6 +76,7 @@ namespace MemeApp
             comment.picBoxUserImage.BringToFront();
             comment.idInArray = comments.Count;
             comments.Add(comment);
+            comment.SetDarkMode();
             SetLocation();
 
             //Set height
@@ -108,6 +109,29 @@ namespace MemeApp
                 comments[i].lblUsername.Location = new Point(70, height + 740 + comments[i].height);
                 comments[i].lblText.Location = new Point(70, height + 780 + comments[i].height);
                 comments[i].picBoxUserImage.Location = new Point(10, height + 740 + comments[i].height);
+            }
+        }
+
+        private void SetDarkMode()
+        {
+            if(MainPage.darkMode)
+            {
+
+            }
+            else
+            {
+                lblUsername.BackColor = Color.FromArgb(255, 255, 255, 255);
+                lblUsername.ForeColor = Color.FromArgb(255, 0, 0, 0);
+                lblText.BackColor = Color.FromArgb(255, 255, 255, 255);
+                lblText.ForeColor = Color.FromArgb(255, 0, 0, 0);
+            }
+        }
+
+        public static void SetDarkModeToAll()
+        {
+            for (int i = 0; i < comments.Count; i++)
+            {
+                comments[i].SetDarkMode();
             }
         }
     }

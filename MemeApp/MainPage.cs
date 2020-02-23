@@ -13,14 +13,13 @@ namespace MemeApp
         public static AccountSettings formAccountSettings = new AccountSettings();
         public static bool darkMode = true;
         public static bool noInternetConnection = false;
-        AddMeme formAddMeme = new AddMeme();
-        LogIn formLogIn = new LogIn();
-        Label lblYouHaveToLogInFirst = new Label();
-        Button btnLoginRegister = new Button();
-
         public float height = 0;
-        List<PictureBox> pics = new List<PictureBox>();
-        List<Label> titles = new List<Label>();
+        private AddMeme formAddMeme = new AddMeme();
+        private LogIn formLogIn = new LogIn();
+        private Label lblYouHaveToLogInFirst = new Label();
+        private Button btnLoginRegister = new Button();
+        private List<PictureBox> pics = new List<PictureBox>();
+        private List<Label> titles = new List<Label>();
 
         public MainPage()
         {
@@ -56,6 +55,9 @@ namespace MemeApp
             if(!noInternetConnection) ShowAllMemes();
             this.Controls.Add(lblYouHaveToLogInFirst);
             this.Controls.Add(btnLoginRegister);
+
+            LoadDarkModeFromFile();
+            SetDarkMode();
         }
 
         public void CheckIfIsLoggedIn()
@@ -70,6 +72,8 @@ namespace MemeApp
             }
             else
             {
+                PicBoxNightMode.Location = new Point(974, 14);
+
                 BtnLogIn.Enabled = false;
                 BtnLogIn.Visible = false;
 
@@ -92,6 +96,7 @@ namespace MemeApp
             BtnAddMeme.BringToFront();
             PicBoxUserIcon.BringToFront();
             BtnLogIn.BringToFront();
+            PicBoxNightMode.BringToFront();
         }
 
         ///<summary>
@@ -199,6 +204,63 @@ namespace MemeApp
             formAccountSettings.Show();
             formAccountSettings.Location = this.Location;
             this.Hide();
+        }
+
+        private void PicBoxNightMode_Click(object sender, EventArgs e)
+        {
+            darkMode = !darkMode;
+            CreateDarkModeFile();
+            SetDarkMode();
+        }
+
+        void SetDarkMode()
+        {
+            Meme.SetDarkModeToAll();
+            Comment.SetDarkModeToAll();
+            OpenMeme.SetDarkMode();
+
+            if (darkMode)
+            {
+                PicBoxNightMode.Image = Image.FromFile("Images/DarkModeOn.png");
+                LblBackground.BackColor = Color.FromArgb(255, 25, 25, 25);
+                PicBoxTopBar.BackColor = Color.FromArgb(255, 51, 51, 51);
+                PicBoxNightMode.BackColor = Color.FromArgb(255, 51, 51, 51);
+            }
+            else
+            {
+                PicBoxNightMode.Image = Image.FromFile("Images/DarkModeOff.png");
+                LblBackground.BackColor = Color.FromArgb(255, 255, 255, 255);
+                PicBoxTopBar.BackColor = Color.FromArgb(255, 0, 0, 0);
+                PicBoxNightMode.BackColor = Color.FromArgb(255, 0, 0, 0);
+            }
+        }
+
+        void LoadDarkModeFromFile()
+        {
+            if (File.Exists("Options.txt"))
+            {
+                string[] data = new string[1];
+
+                try
+                {
+                    data = File.ReadAllLines("Options.txt");
+                    if (data[0] == "False") darkMode = false;
+                    else darkMode = true;
+                }
+                catch
+                {
+                    CreateDarkModeFile();
+                }
+            }
+            else
+            {
+                CreateDarkModeFile();
+            }
+        }
+
+        void CreateDarkModeFile()
+        {
+            File.WriteAllText("Options.txt", darkMode.ToString());
         }
     }
 }

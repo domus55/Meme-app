@@ -41,8 +41,6 @@ namespace MemeApp
         {
             txtBoxWriteComment.Location = new Point(0, 635);
             txtBoxWriteComment.Font = new Font("Arial", 12);
-            txtBoxWriteComment.BackColor = Color.FromArgb(255, 51, 51, 51);
-            txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
             txtBoxWriteComment.Text = "Write comment";
             txtBoxWriteComment.Width = 400;
             txtBoxWriteComment.Height = 50;
@@ -54,8 +52,6 @@ namespace MemeApp
 
             btnAddComment.Location = new Point(410, 635);
             btnAddComment.Font = new Font("Arial", 20);
-            btnAddComment.BackColor = Color.FromArgb(255, 10, 10, 10);
-            btnAddComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
             btnAddComment.Text = "Send";
             btnAddComment.FlatStyle = FlatStyle.Flat;
             btnAddComment.Width = 150;
@@ -70,6 +66,7 @@ namespace MemeApp
 
         public void OpenComments()
         {
+            SetDarkMode();
             comments = DataAccess.ReturnCommentsIds(memeIdInDatabase);
 
             if(comments.Count >= 2)
@@ -103,7 +100,8 @@ namespace MemeApp
                 txtBoxWriteComment.Text = "";
             }
 
-            txtBoxWriteComment.ForeColor = Color.FromArgb(255, 255, 255, 255);
+            if (MainPage.darkMode) txtBoxWriteComment.ForeColor = Color.FromArgb(255, 255, 255, 255);
+            else txtBoxWriteComment.ForeColor = Color.FromArgb(255, 0, 0, 0);
         }
 
         private void TextBoxKeyPress(Object sender, EventArgs e)
@@ -116,7 +114,8 @@ namespace MemeApp
         {
             if (txtBoxWriteComment.Text != "") DataAccess.AddComment(memeIdInDatabase, Account.id, txtBoxWriteComment.Text);
 
-            txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+            if(MainPage.darkMode) txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+            else txtBoxWriteComment.ForeColor = Color.FromArgb(255, 100, 100, 100);
             txtBoxWriteComment.Text = "Write comment";
 
             List<int> comments = DataAccess.ReturnCommentsIds(memeIdInDatabase);
@@ -156,6 +155,26 @@ namespace MemeApp
                 {
                     Comment.ShowComment(comments[Comment.comments.Count]);
                 }
+            }
+        }
+
+        public static void SetDarkMode()
+        {
+            if (MainPage.darkMode)
+            {
+                openMeme.btnAddComment.BackColor = Color.FromArgb(255, 10, 10, 10);
+                openMeme.btnAddComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+                openMeme.txtBoxWriteComment.BackColor = Color.FromArgb(255, 51, 51, 51);
+                openMeme.txtBoxWriteComment.ForeColor = Color.FromArgb(255, 150, 150, 150);
+                openMeme.LblBackground.BackColor = Color.FromArgb(255, 25, 25, 30);
+            }
+            else
+            {
+                openMeme.btnAddComment.BackColor = Color.FromArgb(255, 245, 245, 245);
+                openMeme.btnAddComment.ForeColor = Color.FromArgb(255, 100, 100, 100);
+                openMeme.txtBoxWriteComment.BackColor = Color.FromArgb(255, 204, 204, 204);
+                openMeme.txtBoxWriteComment.ForeColor = Color.FromArgb(255, 100, 100, 100);
+                openMeme.LblBackground.BackColor = Color.FromArgb(255, 255, 255, 255);
             }
         }
     }

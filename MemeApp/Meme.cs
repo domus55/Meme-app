@@ -84,6 +84,7 @@ namespace MemeApp
             meme.upvote.Size = new Size(52, 40);
             meme.upvote.TabStop = false;
             meme.upvote.FlatStyle = FlatStyle.Flat;
+            meme.upvote.FlatAppearance.BorderSize = 0;
             if (meme.pointsAddedByThisUser == 1) meme.upvote.BackgroundImage = imgUpvoteClicked;
             else meme.upvote.BackgroundImage = imgUpvoteNormal;
 
@@ -92,6 +93,7 @@ namespace MemeApp
             meme.downvote.Size = new Size(52, 40);
             meme.downvote.TabStop = false;
             meme.downvote.FlatStyle = FlatStyle.Flat;
+            meme.downvote.FlatAppearance.BorderSize = 0;
             if (meme.pointsAddedByThisUser == -1) meme.downvote.BackgroundImage = imgDownvoteClicked;
             else meme.downvote.BackgroundImage = imgDownvoteNormal;
 
@@ -100,6 +102,7 @@ namespace MemeApp
             meme.comments.Size = new Size(52, 40);
             meme.comments.TabStop = false;
             meme.comments.FlatStyle = FlatStyle.Flat;
+            meme.comments.FlatAppearance.BorderSize = 0;
             meme.comments.Location = new Point(800, 400);
             meme.comments.BackgroundImage = imgComments;
 
@@ -277,6 +280,40 @@ namespace MemeApp
                     if (Account.username == "Guest") memes[i].comments.Location = new Point(10, (int)height + 620 + i * interspaceBetweenMemes);
                     else memes[i].comments.Location = new Point(130, (int)height + 620 + i * interspaceBetweenMemes);
                 }
+            }
+        }
+
+        public void SetDarkMode()
+        {
+            if (MainPage.darkMode)
+            {
+                lblTitle.BackColor = Color.FromArgb(255, 25, 25, 30);
+                lblTitle.ForeColor = Color.FromArgb(255, 255, 255, 255);
+                picBoxImage.BackColor = Color.FromArgb(255, 25, 25, 30);
+                upvote.BackColor = Color.FromArgb(255, 0, 0, 0);
+                downvote.BackColor = Color.FromArgb(255, 0, 0, 0);
+                comments.BackColor = Color.FromArgb(255, 0, 0, 0);
+                pointsAndComments.BackColor = Color.FromArgb(255, 25, 25, 30);
+                pointsAndComments.ForeColor = Color.FromArgb(255, 255, 255, 255);
+            }
+            else
+            {
+                lblTitle.BackColor = Color.FromArgb(255, 255, 255, 255);
+                lblTitle.ForeColor = Color.FromArgb(255, 0, 0, 0);
+                picBoxImage.BackColor = Color.FromArgb(255, 255, 255, 255);
+                upvote.BackColor = Color.FromArgb(255, 255, 255, 255);
+                downvote.BackColor = Color.FromArgb(255, 255, 255, 255);
+                comments.BackColor = Color.FromArgb(255, 255, 255, 255);
+                pointsAndComments.BackColor = Color.FromArgb(255, 255, 255, 255);
+                pointsAndComments.ForeColor = Color.FromArgb(255, 0, 0, 0);
+            }
+        }
+
+        public static void SetDarkModeToAll()
+        {
+            for (int i = 0; i<memes.Count; i++)
+            {
+                memes[i].SetDarkMode();
             }
         }
     }
