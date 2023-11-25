@@ -225,6 +225,7 @@ namespace MemeApp
                 LblBackground.BackColor = Color.FromArgb(255, 25, 25, 25);
                 PicBoxTopBar.BackColor = Color.FromArgb(255, 51, 51, 51);
                 PicBoxNightMode.BackColor = Color.FromArgb(255, 51, 51, 51);
+                PicBoxUserIcon.BackColor = Color.FromArgb(255, 51, 51, 51);
             }
             else
             {
@@ -232,6 +233,7 @@ namespace MemeApp
                 LblBackground.BackColor = Color.FromArgb(255, 255, 255, 255);
                 PicBoxTopBar.BackColor = Color.FromArgb(255, 0, 0, 0);
                 PicBoxNightMode.BackColor = Color.FromArgb(255, 0, 0, 0);
+                PicBoxUserIcon.BackColor = Color.FromArgb(255, 0, 0, 0);
             }
         }
 

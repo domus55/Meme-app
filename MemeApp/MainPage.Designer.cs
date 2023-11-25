@@ -91,7 +91,8 @@
             // 
             // PicBoxUserIcon
             // 
-            this.PicBoxUserIcon.Location = new System.Drawing.Point(1010, 4);
+            this.PicBoxUserIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.PicBoxUserIcon.Location = new System.Drawing.Point(1010, 5);
             this.PicBoxUserIcon.Name = "PicBoxUserIcon";
             this.PicBoxUserIcon.Size = new System.Drawing.Size(50, 50);
             this.PicBoxUserIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
