@@ -21,8 +21,7 @@ namespace MemeApp
         private Label lblUsername;
         private Label lblText;
         private PictureBox picBoxUserImage;
-        private const int interspaceBetweenComments = 50;
-
+        private const int interspaceBetweenComments = -160;
         public Comment()
         {
             lblUsername = new Label();

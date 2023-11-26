@@ -287,11 +287,7 @@ namespace MemeApp
         /// </summary>
         public static void CreateNewUser(string username, string password)
         {
-            Random rnd = new Random();
-
-            int imageNumber = rnd.Next() % 5 + 1;
-
-            string picLoc = "Images/UserIcons/" + imageNumber + ".png";
+            string picLoc = "Images/UserIcons/Default.png";
             byte[] img = null;
             FileStream fs = new FileStream(picLoc, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);

@@ -13,7 +13,7 @@ namespace MemeApp
         public static AccountSettings formAccountSettings = new AccountSettings();
         public static bool darkMode = true;
         public static bool noInternetConnection = false;
-        public float height = 0;
+        public float height = 20;
         private AddMeme formAddMeme = new AddMeme();
         private LogIn formLogIn = new LogIn();
         private Label lblYouHaveToLogInFirst = new Label();
@@ -113,8 +113,8 @@ namespace MemeApp
             }
             else
             {
-                height += e.Delta * 0.4f;
-                if (height > 0) height = 0;
+                height += e.Delta * 0.8f;
+                if (height > 20) height = 20;
             }
 
             Meme.SetLocation();
@@ -197,6 +197,7 @@ namespace MemeApp
             ShowAllMemes();
             this.LblBackground.MouseWheel += MouseWheel;
             CheckIfIsLoggedIn();
+            SetDarkMode();
         }
 
         private void BtnAccountSettings_Click(object sender, EventArgs e)
@@ -221,16 +222,20 @@ namespace MemeApp
 
             if (darkMode)
             {
+                this.BackgroundImage = Image.FromFile("Images/backgroundDark.png");
                 PicBoxNightMode.Image = Image.FromFile("Images/DarkModeOn.png");
-                LblBackground.BackColor = Color.FromArgb(255, 25, 25, 25);
+                LblBackground.BackColor = Color.FromArgb(255, 44, 25, 25);
+                LblBackground.Image = Image.FromFile("Images/backgroundDark.png");
                 PicBoxTopBar.BackColor = Color.FromArgb(255, 51, 51, 51);
                 PicBoxNightMode.BackColor = Color.FromArgb(255, 51, 51, 51);
                 PicBoxUserIcon.BackColor = Color.FromArgb(255, 51, 51, 51);
             }
             else
             {
+                this.BackgroundImage = Image.FromFile("Images/backgroundLight.png");
                 PicBoxNightMode.Image = Image.FromFile("Images/DarkModeOff.png");
                 LblBackground.BackColor = Color.FromArgb(255, 255, 255, 255);
+                LblBackground.Image = Image.FromFile("Images/backgroundLight.png");
                 PicBoxTopBar.BackColor = Color.FromArgb(255, 0, 0, 0);
                 PicBoxNightMode.BackColor = Color.FromArgb(255, 0, 0, 0);
                 PicBoxUserIcon.BackColor = Color.FromArgb(255, 0, 0, 0);

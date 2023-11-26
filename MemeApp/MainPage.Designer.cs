@@ -49,7 +49,7 @@
             this.LblBackground.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.LblBackground.Location = new System.Drawing.Point(0, 0);
             this.LblBackground.Name = "LblBackground";
-            this.LblBackground.Size = new System.Drawing.Size(1064, 680);
+            this.LblBackground.Size = new System.Drawing.Size(1080, 720);
             this.LblBackground.TabIndex = 1;
             this.LblBackground.Click += new System.EventHandler(this.LblBackground_Click);
             // 
@@ -154,7 +154,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.BackgroundImage = global::MemeApp.Properties.Resources.background;
             this.ClientSize = new System.Drawing.Size(1064, 681);
             this.Controls.Add(this.PicBoxNightMode);
             this.Controls.Add(this.BtnLogout);

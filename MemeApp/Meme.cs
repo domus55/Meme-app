@@ -24,7 +24,7 @@ namespace MemeApp
         private Button upvote;
         private Button downvote;
         private Button comments;
-        private const int interspaceBetweenMemes = 680;
+        private const int interspaceBetweenMemes = 630;
         private static Image imgUpvoteNormal = Image.FromFile("images/upvote.png");
         private static Image imgUpvoteClicked = Image.FromFile("images/upvoteClicked.png");
         private static Image imgDownvoteNormal = Image.FromFile("images/downvote.png");
@@ -60,7 +60,7 @@ namespace MemeApp
             //Initialize title label
             meme.lblTitle.Text = meme.title;
             meme.lblTitle.ForeColor = Color.FromArgb(255, 255, 255, 255);
-            meme.lblTitle.Font = new Font("Arial", 30);
+            meme.lblTitle.Font = new Font("Arial", 30, FontStyle.Bold);
             meme.lblTitle.AutoSize = true;
 
             ////Initialize meme picturebox
@@ -287,18 +287,19 @@ namespace MemeApp
         {
             if (MainPage.darkMode)
             {
-                lblTitle.BackColor = Color.FromArgb(255, 25, 25, 30);
+                lblTitle.BackColor = Color.FromArgb(255, 0, 0, 0);
+                lblTitle.BackColor = Color.Transparent;
                 lblTitle.ForeColor = Color.FromArgb(255, 255, 255, 255);
-                picBoxImage.BackColor = Color.FromArgb(255, 25, 25, 30);
+                picBoxImage.BackColor = Color.FromArgb(255, 25, 25, 25);
                 upvote.BackColor = Color.FromArgb(255, 0, 0, 0);
                 downvote.BackColor = Color.FromArgb(255, 0, 0, 0);
                 comments.BackColor = Color.FromArgb(255, 0, 0, 0);
-                pointsAndComments.BackColor = Color.FromArgb(255, 25, 25, 30);
+                pointsAndComments.BackColor = Color.FromArgb(255, 25, 25, 25);
                 pointsAndComments.ForeColor = Color.FromArgb(255, 255, 255, 255);
             }
             else
             {
-                lblTitle.BackColor = Color.FromArgb(255, 255, 255, 255);
+                lblTitle.BackColor = Color.FromArgb(0, 255, 255, 255);
                 lblTitle.ForeColor = Color.FromArgb(255, 0, 0, 0);
                 picBoxImage.BackColor = Color.FromArgb(255, 255, 255, 255);
                 upvote.BackColor = Color.FromArgb(255, 255, 255, 255);
