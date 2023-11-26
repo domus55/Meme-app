@@ -2,6 +2,9 @@
 Welcome to the Meme App, a desktop application built in C# using WinForms that allows you to share your favorite memes and funny pictures with friends. 
 The application seamlessly stores all its data in a database for efficient retrieval and management.
 
+# Data base
+![img](https://github.com/domus55/Meme-app/blob/master/Readme%20files/Database.png)
+
 # Functionality
 ## Creating an account
 Upon launching the application for the first time, users are automatically logged in with limited access. 
